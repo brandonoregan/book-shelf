@@ -27,14 +27,13 @@ Home | Book Shelf
 
 {% block content %}
 <div class="container mx-auto">
-    <h1 class="text-center mb-4">Book Of The Month</h1>
+    <h1 class="text-center row-bordered mb-5 mt-3 p-2">Book Of The Month</h1>
     <div class="row ">
-        <div class="col-auto">
-            <img class="mx-auto" src="{{ url_for('static', filename='img/atomic-habits.jpg') }}" alt="Atomic Habits book cover">
+        <div class="col-auto ">
+            <img class="mx-auto pt-2" src="{{ url_for('static', filename='img/atomic-habits.jpg') }}" alt="Atomic Habits book cover">
         </div>
         <div class="col text-center">
-            <h2>Atomic Habits - James Clear</h2>
-            <h3>Tiny Changes, Remarkable Results</h3>
+            <h2>Atomic Habits - Tiny Changes, Remarkable Results</h2>
             <p class="text-start">
                 No matter your goals, Atomic Habits offers a proven framework for improving--every day. James Clear, one of the world's leading experts on habit formation, reveals practical strategies that will teach you exactly how to form good habits, break bad ones, and master the tiny behaviors that lead to remarkable results.
             </p>
@@ -47,11 +46,32 @@ Home | Book Shelf
                 get back on track when you fall off course;
                 ...and much more.</p>
             <p class="text-start">Atomic Habits will reshape the way you think about progress and success, and give you the tools and strategies you need to transform your habits--whether you are a team looking to win a championship, an organization hoping to redefine an industry, or simply an individual who wishes to quit smoking, lose weight, reduce stress, or achieve any other goal.</p>
-
-
-
-
-
+        </div>
+        <div>
+            <h3 class="d-inline-block display-4 row-bordered mt-5">Reviews</h3>
+            <button class="d-inline-block">Add review button</button>
+        </div>
+        <div class="row">
+            <div class="col">
+                <ul class="list-unstyled">
+                    <li>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Insert dynamic name tag</h5>
+                                <p class="card-text">I thought this book was amazing!</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Insert dynamic name tag</h5>
+                                <p class="card-text">I thought this book was amazing!</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
