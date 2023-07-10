@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home | Book Shelf
+{% endblock %}
+
+{% block navbar %}
+<a class="navbar-brand" href="{{ url_for('home') }}">
+    <img src="{{ url_for('static', filename='/img/book-svg-2.svg') }}" alt="">
+    Book Shelf
+</a>
+<ul class="navbar-nav ml-auto">
+    <li class="nav-item">
+        <a class="nav-link " href="{{ url_for('home') }}">Home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('reviews') }}">Reviews</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="{{ url_for('wish_list') }}">Wish List</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('login') }}">Sign out</a>
+    </li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<h1>Wish List</h1>
+{% endblock %}

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-Sign Up
+Log in | Book Shelf
 {% endblock %}
 
 {% block navbar %}
@@ -11,14 +11,14 @@ Sign Up
 </a>
 <ul class="navbar-nav ml-auto">
     <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="#">Sign up</a>
+        <a class="nav-link"  href="{{ url_for('index') }}">Sign up</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('login') }}">Log in</a>
+        <a class="nav-link active" aria-current="page" href="">Log in</a>
     </li>
 </ul>
 {% endblock %}
 
 {% block content %}
-<h1>Sign Up</h1>
+<h1>login</h1>
 {% endblock %}
