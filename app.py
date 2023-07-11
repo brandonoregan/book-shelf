@@ -8,6 +8,18 @@ public_reviews = {
     "Tom": "What a great Book!",
     "Mark": "Absolutely hated that book!",
 } 
+personal_reviews = {
+    "Atomic Habits" : 
+    {
+        "Thoughts" : "10/10. I really enjoyed this book, the one percent better idea really stuck with me.", 
+        "img" : "atomic-habits.jpg"
+        },
+    "Man's Search For Meaning" : 
+    {
+        "Thoughts":"10/10 Core them of the book, he who has a strong enough why can overcome anything.",
+        "img" : "msfm.jpg"
+        }
+}
 
 @app.route('/', methods = ['GET', 'POST'])
 def register():
@@ -44,7 +56,7 @@ def home():
 
 @app.route('/reviews')
 def reviews():
-    return render_template("reviews.html")
+    return render_template("reviews.html", personal_reviews=personal_reviews)
 
 @app.route('/wish_list')
 def wish_list():

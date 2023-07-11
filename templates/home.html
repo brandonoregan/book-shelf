@@ -25,9 +25,11 @@ Home | Book Shelf
 </ul>
 {% endblock %}
 
+{% block pagetitle %}  
+Book Of The Month
+{% endblock %}
 {% block content %}
 <div class="container mx-auto">
-    <h1 class="text-center row-bordered mb-5 mt-3 p-2">Book Of The Month</h1>
     <div class="row ">
         <div class="col-auto ">
             <img class="mx-auto pt-2" src="{{ url_for('static', filename='img/atomic-habits.jpg') }}" alt="Atomic Habits book cover">

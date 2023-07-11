@@ -41,6 +41,10 @@
             </div>
         </nav>
         <div class="main-content">
+            <h1 class="text-center row-bordered mb-5 mt-3 p-2">
+                {% block pagetitle %}
+                {% endblock %}
+            </h1>
             {% block content %}
             {% endblock %}
         </div>
