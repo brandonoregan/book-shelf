@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 
+{% block javascript %}
+{% endblock %}
+
 {% block title %}
 Home | Book Shelf
 {% endblock %}
@@ -32,10 +35,10 @@ Book Of The Month
 <div class="container mx-auto">
     <div class="row ">
         <div class="col-auto ">
-            <img class="mx-auto pt-2" src="{{ url_for('static', filename='img/atomic-habits.jpg') }}" alt="Atomic Habits book cover">
+            <img class="bookMonth mx-auto pt-2" src="{{ url_for('static', filename='img/atomic-habits.jpg') }}" alt="Atomic Habits book cover">
         </div>
         <div class="col text-center">
-            <h2>Atomic Habits - Tiny Changes, Remarkable Results</h2>
+            <h2 class="bookMonthTitle">Atomic Habits - Tiny Changes, Remarkable Results</h2>
             <p class="text-start">
                 No matter your goals, Atomic Habits offers a proven framework for improving--every day. James Clear, one of the world's leading experts on habit formation, reveals practical strategies that will teach you exactly how to form good habits, break bad ones, and master the tiny behaviors that lead to remarkable results.
             </p>
@@ -85,3 +88,9 @@ Book Of The Month
     </div>
 </div>
 {% endblock %}
+
+{% block scripts %}
+    
+<script  src="{{ url_for('static', filename='js/home.js') }}"></script>
+
+{% endblock scripts %}
