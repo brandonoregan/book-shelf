@@ -14,15 +14,13 @@
 </head>
 <body>
     <div class="content-wrap d-flex flex-column min-vh-100">
+        {% block navbar %}
         <nav class="navbar navbar-expand-sm bg-body-tertiary text-bg-dark">
             <div class="container-fluid">
-                {% block navbar_logo_link %}
-                <a class="navbar-brand" href="{{ url_for('index') }}">
+                <a class="navbar-brand" href="{% if active_page == 'home' %}{{ url_for('home') }}{% elif active_page == 'reviews' %}{{ url_for('reviews') }}{% elif active_page == 'wish_list' %}{{ url_for('wish_list') }}{% endif %}">
                     <img src="{{ url_for('static', filename='/img/book-svg-2.svg') }}" alt="">
                     Book Shelf
                 </a>
-                {% endblock %}
-                {% block navbar %}
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <a class="nav-link {% if active_page == 'home' %}active{% endif %}" aria-current="page" href="{{ url_for('home') }}">Home</a>
@@ -58,9 +56,9 @@
                         </li> 
                     </ul>
                 </div> -->
-                {% endblock %}
             </div>
         </nav>
+        {% endblock %}
         <div class="main-content">
             <h1 id="pageTitle" class="pageTitle text-center row-bordered mb-5 mt-3 p-2">
                 {% block pagetitle %}

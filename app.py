@@ -2,6 +2,7 @@ from flask import Flask, url_for, redirect, render_template, request
 import random
 app = Flask(__name__)
 
+active_page = ''
 users = {}
 public_reviews = {
     "Brandon":"This book is easily one of the best books you'll ever read. For me, a great measure of a good book is one you want to read again. I've read this book 3 times so far. Could not reccomend this book highly enough!",

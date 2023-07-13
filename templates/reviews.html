@@ -7,13 +7,8 @@
 Reviews | Book Shelf
 {% endblock %}
 
-{% block navbar_logo_link %}
-<a class="navbar-brand" href="{{ url_for('home') }}">
-    <img src="{{ url_for('static', filename='/img/book-svg-2.svg') }}" alt="">
-    Book Shelf
-</a>
-{% endblock %}   
 {% block navbar %}
+
 {{ super() }}
 
 <!-- <ul class="navbar-nav ml-auto">
