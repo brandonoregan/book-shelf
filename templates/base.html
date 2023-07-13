@@ -15,47 +15,31 @@
 <body>
     <div class="content-wrap d-flex flex-column min-vh-100">
         {% block navbar %}
-        <nav class="navbar navbar-expand-sm bg-body-tertiary text-bg-dark">
+        <nav class="navbar navbar-expand-md bg-body-tertiary text-bg-dark ">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{% if active_page == 'home' %}{{ url_for('home') }}{% elif active_page == 'reviews' %}{{ url_for('reviews') }}{% elif active_page == 'wish_list' %}{{ url_for('wish_list') }}{% endif %}">
                     <img src="{{ url_for('static', filename='/img/book-svg-2.svg') }}" alt="">
                     Book Shelf
                 </a>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link {% if active_page == 'home' %}active{% endif %}" aria-current="page" href="{{ url_for('home') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if active_page == 'reviews' %}active{% endif %}" href="{{ url_for('reviews') }}">Reviews</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if active_page == 'wish_list' %}active{% endif %}" href="{{ url_for('wish_list') }}">Wish List</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('login') }}">Sign out</a>
-                    </li>
-                </ul>
-
-                
-                <!-- <button class="navbar-toggler ml-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler ml-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNav"> 
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav"> 
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Sign up</a>
+                            <a class="nav-link {% if active_page == 'home' %}active{% endif %}" aria-current="page" href="{{ url_for('home') }}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Log in</a>
-                        </li> 
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Book of the Month</a>
+                            <a class="nav-link {% if active_page == 'reviews' %}active{% endif %}" href="{{ url_for('reviews') }}">Reviews</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link">Favourites</a>
-                        </li> 
+                            <a class="nav-link {% if active_page == 'wish_list' %}active{% endif %}" href="{{ url_for('wish_list') }}">Wish List</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('login') }}">Sign out</a>
+                        </li>
                     </ul>
-                </div> -->
+                </div>
             </div>
         </nav>
         {% endblock %}
