@@ -32,6 +32,49 @@ Personal Book Reviews
 {% endblock %}
 
 {% block content %}
+<div class="container d-flex justify-content-center mb-3">
+    <div class="row">
+        <div class="col col-12 ">
+            <h5 class="text-center text-body-emphasis">There's nothing worse then reading a great book and forgetting everything you've just read. Use this virtual library to store the books you've read and summarise the parts that mean the most to you.</h5>
+        </div>
+    </div>
+</div>
+<div class="container d-flex justify-content-center mb-4">
+    <div class="row">
+        <div class="col col-12 ">
+            <div class="input-group rounded">
+                <form method="GET" action="{{url_for('reviews')}}" id="reviewsSearchBar">
+                    <input name="query"  type="search" class="form-control  border-black border-end-0" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                    <button type="submit" for="reviewsSearchBar" class="btn btn-primary input-group-text border-black border-start-0" id="search-addon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                          </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        {% for book in books %}
+            <div class="col-3">
+                <div class="card bookCard embed-responsive embed-responsive-16by9" data-bs-toggle="modal" data-bs-target="#exampleModal" style="">
+                    <img style="max-width: 18rem; max-height: 18rem;" src="{% if book['volumeInfo']['imageLinks'] %}{{ book['volumeInfo']['imageLinks']['thumbnail'] }}{% endif %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                    <h5 class="card-title">{{ book['volumeInfo']['title'] }}</h5>
+                    <p class="card-text cardText text-truncate">{{ book['volumeInfo']['title'] }}</p>
+                    </div>
+                    <a  href="{{ url_for('reviews') }}" class="ms-auto mb-2 me-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen editModal" viewBox="0 0 16 16">
+                            <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}            
+    </div>
+</div>
 <div class="container">
     <div class="row d-flex float-start">
         {% for key, value in personal_reviews.items() %}
