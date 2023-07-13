@@ -4,12 +4,16 @@
 Home | Book Shelf
 {% endblock %}
 
-{% block navbar %}
+{% block navbar_logo_link %}
 <a class="navbar-brand" href="{{ url_for('home') }}">
     <img src="{{ url_for('static', filename='/img/book-svg-2.svg') }}" alt="">
     Book Shelf
 </a>
-<ul class="navbar-nav ml-auto">
+{% endblock %}   
+{% block navbar %}
+{{ super() }}
+
+<!-- <ul class="navbar-nav ml-auto">
     <li class="nav-item">
         <a class="nav-link " href="{{ url_for('home') }}">Home</a>
     </li>
@@ -22,7 +26,7 @@ Home | Book Shelf
     <li class="nav-item">
         <a class="nav-link" href="{{ url_for('login') }}">Sign out</a>
     </li>
-</ul>
+</ul> -->
 {% endblock %}
 
 {% block pagetitle %}

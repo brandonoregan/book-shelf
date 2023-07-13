@@ -16,31 +16,49 @@
     <div class="content-wrap d-flex flex-column min-vh-100">
         <nav class="navbar navbar-expand-sm bg-body-tertiary text-bg-dark">
             <div class="container-fluid">
-                {% block navbar %}
+                {% block navbar_logo_link %}
                 <a class="navbar-brand" href="{{ url_for('index') }}">
                     <img src="{{ url_for('static', filename='/img/book-svg-2.svg') }}" alt="">
                     Book Shelf
                 </a>
-                    <!-- <button class="navbar-toggler ml-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button> -->
-                    <!-- <div class="collapse navbar-collapse" id="navbarNav"> -->
-                    <!-- <ul class="navbar-nav ml-auto">
+                {% endblock %}
+                {% block navbar %}
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% if active_page == 'home' %}active{% endif %}" aria-current="page" href="{{ url_for('home') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if active_page == 'reviews' %}active{% endif %}" href="{{ url_for('reviews') }}">Reviews</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if active_page == 'wish_list' %}active{% endif %}" href="{{ url_for('wish_list') }}">Wish List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('login') }}">Sign out</a>
+                    </li>
+                </ul>
+
+                
+                <!-- <button class="navbar-toggler ml-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav"> 
+                    <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">Sign up</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Log in</a>
-                        </li> -->
-                        <!-- <li class="nav-item">
+                        </li> 
+                        <li class="nav-item">
                             <a class="nav-link" href="#">Book of the Month</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link">Favourites</a>
-                        </li> -->
-                    <!-- </ul> -->
-                    <!-- </div> -->
-                    {% endblock %}
+                        </li> 
+                    </ul>
+                </div> -->
+                {% endblock %}
             </div>
         </nav>
         <div class="main-content">
@@ -64,6 +82,7 @@
     <!-- GSAP -->
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"
+
     ></script>
 
     <!-- Bootstrap JS -->

@@ -8,6 +8,8 @@ public_reviews = {
     "Tom": "What a great Book!",
     "Mark": "Absolutely hated that book!",
 } 
+
+# Change this to a list that contains dicts. Atomic would be under title
 personal_reviews = {
     "Atomic Habits" : 
     {
@@ -23,6 +25,7 @@ personal_reviews = {
 
 @app.route('/', methods = ['GET', 'POST'])
 def register():
+
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
@@ -44,6 +47,7 @@ def login():
 
 @app.route('/home', methods = ['GET', 'POST'])
 def home():
+    active_page = 'home'
     current_user = f'User{random.randint(0,5000)}'
     if request.method == "POST":
         review = request.form.get('review')
@@ -52,15 +56,17 @@ def home():
         return render_template("home.html", public_reviews = public_reviews)
         
 
-    return render_template("home.html", public_reviews = public_reviews)
+    return render_template("home.html", public_reviews = public_reviews, active_page=active_page)
 
 @app.route('/reviews')
 def reviews():
-    return render_template("reviews.html", personal_reviews=personal_reviews)
+    active_page = 'reviews'
+    return render_template("reviews.html", personal_reviews=personal_reviews, active_page=active_page)
 
 @app.route('/wish_list')
 def wish_list():
-    return render_template("wish_list.html")
+    active_page = 'wish_list'
+    return render_template("wish_list.html", active_page=active_page)
 
 
 if __name__ == '__main__':

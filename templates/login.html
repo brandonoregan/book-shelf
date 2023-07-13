@@ -7,11 +7,13 @@
 Log in | Book Shelf
 {% endblock %}
 
-{% block navbar %}
+{% block navbar_logo_link %}
 <a class="navbar-brand" href="{{ url_for('register') }}">
     <img src="{{ url_for('static', filename='/img/book-svg-2.svg') }}" alt="">
     Book Shelf
 </a>
+{% endblock %}   
+{% block navbar %}
 <ul class="navbar-nav ml-auto">
     <li class="nav-item">
         <a class="nav-link"  href="{{ url_for('register') }}">Sign up</a>
@@ -60,5 +62,5 @@ Welcome Back!
 
     <!-- JavaScript -->
     <!-- <script  src="{{ url_for('static', filename='js/login.js') }}"></script> -->
-    
+
 {% endblock scripts %}
