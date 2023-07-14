@@ -1,11 +1,5 @@
-{% extends "base.html" %}
-
-{% block title %}
-Home | Book Shelf
-{% endblock %}
-
-{% block navbar %}
-{{ super() }}
+{% extends "base.html" %} {% block title %} Home | Book Shelf {% endblock %} {%
+block navbar %} {{ super() }}
 
 <!-- <ul class="navbar-nav ml-auto">
     <li class="nav-item">
@@ -21,65 +15,80 @@ Home | Book Shelf
         <a class="nav-link" href="{{ url_for('login') }}">Sign out</a>
     </li>
 </ul> -->
-{% endblock %}
-
-{% block pagetitle %}
-Wish List
-{% endblock %}
-
-{% block content %}
+{% endblock %} {% block pagetitle %} Wish List {% endblock %} {% block content
+%}
 <div class="container">
-    <div class="row g-4">
-        <div class="col">
-            <div class="card col-3" style="width: 18rem;">
-                <img src="{{ url_for('static', filename='img/changing-world.jpg') }}" class="card-img-top" alt="...">
-                <!-- <div class="card-body">
+  <div class="row g-4">
+    <div class="col">
+      <div class="card col-3" role="button" style="width: 18rem">
+        <img
+          src="{{ url_for('static', filename='img/changing-world.jpg') }}"
+          class="card-img-top"
+          alt="..."
+        />
+        <!-- <div class="card-body">
                   <h5 class="card-title">Review</h5>
                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                   <a href="#" class="btn btn-primary">Modal popup</a>
                 </div> -->
-              </div>
-        </div>
-        <div class="col">
-            <div class="card col-3" style="width: 18rem;">
-                <img src="{{ url_for('static', filename='img/breath.jpg') }}" class="card-img-top" alt="...">
-                <!-- <div class="card-body">
-                  <h5 class="card-title">Review</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Modal popup</a>
-                </div> -->
-              </div>
-        </div>
-        <div class="col">
-            <div class="card col-3" style="width: 18rem;">
-                <img src="{{ url_for('static', filename='img/sapiens.jpg') }}" class="card-img-top" alt="...">
-                <!-- <div class="card-body">
-                  <h5 class="card-title">Review</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Modal popup</a>
-                </div> -->
-              </div>
-        </div>
-        <div class="col">
-            <div class="card col-3" style="width: 18rem;">
-                <img src="{{ url_for('static', filename='img/atomic-habits.jpg') }}" class="card-img-top" alt="...">
-                <!-- <div class="card-body">
-                  <h5 class="card-title">Review</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Modal popup</a>
-                </div> -->
-              </div>
-        </div>
-        <div class="col">
-            <div class="card col-3" style="width: 18rem;">
-                <img src="{{ url_for('static', filename='img/atomic-habits.jpg') }}" class="card-img-top" alt="...">
-                <!-- <div class="card-body">
-                  <h5 class="card-title">Review</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Modal popup</a>
-                </div> -->
-              </div>
-        </div>
+      </div>
     </div>
+    <div class="col">
+      <div class="card col-3" role="button" style="width: 18rem">
+        <img
+          src="{{ url_for('static', filename='img/breath.jpg') }}"
+          class="card-img-top"
+          alt="..."
+        />
+        <!-- <div class="card-body">
+                  <h5 class="card-title">Review</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="btn btn-primary">Modal popup</a>
+                </div> -->
+      </div>
+    </div>
+    <div class="col">
+      <div class="card col-3" role="button" style="width: 18rem">
+        <img
+          src="{{ url_for('static', filename='img/sapiens.jpg') }}"
+          class="card-img-top"
+          alt="..."
+        />
+        <!-- <div class="card-body">
+                  <h5 class="card-title">Review</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="btn btn-primary">Modal popup</a>
+                </div> -->
+      </div>
+    </div>
+    <div class="col">
+      <div class="card col-3" role="button" style="width: 18rem">
+        <img
+          src="{{ url_for('static', filename='img/atomic-habits.jpg') }}"
+          class="card-img-top"
+          alt="..."
+        />
+        <!-- <div class="card-body">
+                  <h5 class="card-title">Review</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="btn btn-primary">Modal popup</a>
+                </div> -->
+      </div>
+    </div>
+    <div class="col">
+      <div class="card col-3" role="button" style="width: 18rem">
+        <img
+          src="{{ url_for('static', filename='img/atomic-habits.jpg') }}"
+          class="card-img-top"
+          alt="..."
+        />
+        <!-- <div class="card-body">
+                  <h5 class="card-title">Review</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="btn btn-primary">Modal popup</a>
+                </div> -->
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}

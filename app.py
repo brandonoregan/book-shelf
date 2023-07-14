@@ -76,7 +76,7 @@ def reviews():
             if response.status_code == 200:
                 data = response.json()
                 books = data.get('items', [])
-                book_limit = books[:5]
+                book_limit = books[:10]
 
                 # for book in book_limit:
                 #     title = book['volumeInfo']['title']
