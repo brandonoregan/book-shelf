@@ -1,71 +1,82 @@
-{% extends "base.html" %}
-
-{% block javascript %}
-{% endblock %}
-
-{% block title %}
-Log in | Book Shelf
-{% endblock %}
-
-{% block navbar %}
+{% extends "base.html" %} {% block javascript %} {% endblock %} {% block title
+%} Log in | Book Shelf {% endblock %} {% block navbar %}
 <nav class="navbar navbar-expand-sm bg-body-tertiary text-bg-dark">
-    <div class="container-fluid">
-    
-        {% block navbar_logo_link %}
-        <a class="navbar-brand" href="{{ url_for('register') }}">
-            <img src="{{ url_for('static', filename='/img/book-svg-2.svg') }}" alt="">
-            Book Shelf
-        </a>
-        {% endblock %}   
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link"  href="{{ url_for('register') }}">Sign up</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="">Log in</a>
-            </li>
-        </ul>
-    </div>
+  <div class="container-fluid">
+    {% block navbar_logo_link %}
+    <a class="navbar-brand" href="{{ url_for('register') }}">
+      <img
+        src="{{ url_for('static', filename='/img/book-svg-2.svg') }}"
+        alt=""
+      />
+      Book Shelf
+    </a>
+    {% endblock %}
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('register') }}">Sign up</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="">Log in</a>
+      </li>
+    </ul>
+  </div>
 </nav>
-{% endblock %}
-
-{% block pagetitle %}
-Welcome Back!
-{% endblock %}
-
-{% block content %}
+{% endblock %} {% block pagetitle %} Welcome Back! {% endblock %} {% block
+content %}
 <div class="container mt-5 pt-5">
-    <div class="row">
-        <div class="col-12 col-sm-8 col-md-6 m-auto">
-            <div class="card border-0 shadow">
-                <div class="card-body">
-                    <div class="d-flex justify-content-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-person-circle my-3 mx-auto" viewBox="0 0 16 16">
-                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                        </svg>
-                    </div>
-                    <form action="{{url_for('login')}}" method="POST">
-                        <input type="text" name="username" id="username" class="form-control my-4 py-2" placeholder="Username">
-                        <input type="text" name="password" id="password" class="form-control my-4 py-2" placeholder="Password">
-                        <div class="text-center mt-3">
-                            <button class="btn btn-primary">Login</button>
-                            <a href="{{ url_for('register')}}" class="nav-link">Don't have an account ?</a>
-                        </div>
-                    </form>
-                </div>
+  <div class="row">
+    <div class="col-12 col-sm-8 col-md-6 m-auto">
+      <div class="card border-0 shadow">
+        <div class="card-body">
+          <div class="d-flex justify-content-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="50"
+              height="50"
+              fill="currentColor"
+              class="bi bi-person-circle my-3 mx-auto"
+              viewBox="0 0 16 16"
+            >
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+              <path
+                fill-rule="evenodd"
+                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+              />
+            </svg>
+          </div>
+          <form action="{{url_for('login')}}" method="POST">
+            <input
+              type="text"
+              name="username"
+              id="username"
+              class="form-control my-4 py-2"
+              placeholder="Username"
+            />
+            <input
+              type="text"
+              name="password"
+              id="password"
+              class="form-control my-4 py-2"
+              placeholder="Password"
+            />
+            <div class="text-center mt-3">
+              <button class="btn btn-primary">Login</button>
+              <a href="{{ url_for('register')}}" class="nav-link"
+                >Don't have an account ?</a
+              >
             </div>
+          </form>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 <a href="{{ url_for('home') }}">Home</a>
 <a href="{{ url_for('reviews') }}">Reviews</a>
 <a href="{{ url_for('wish_list') }}">Wish List</a>
-{% endblock %}
+{% endblock %} {% block scripts %}
 
-{% block scripts %}
-
-    <!-- JavaScript -->
-    <!-- <script  src="{{ url_for('static', filename='js/login.js') }}"></script> -->
+<!-- JavaScript -->
+<!-- <script  src="{{ url_for('static', filename='js/login.js') }}"></script> -->
 
 {% endblock scripts %}

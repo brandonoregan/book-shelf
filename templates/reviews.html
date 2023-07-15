@@ -36,6 +36,7 @@ block content %}
           method="GET"
           action="{{url_for('reviews')}}"
           id="reviewsSearchBar"
+          name="query_form"
         >
           <div class="container d-flex">
             <input
@@ -105,64 +106,84 @@ block content %}
       </svg>
     </a>
     {% endif %} {% for book in book_limit %}
-    <div class="projects--tile col-3" style="transition: transform 0.7s ease">
-      <div
-        role="button"
-        class="card bookCard embed-responsive embed-responsive-16by9"
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
-        style=""
-      >
-        <img
-          style="max-height: 18rem"
-          src="{% if book['volumeInfo']['imageLinks'] %}{{ book['volumeInfo']['imageLinks']['thumbnail'] }}{% endif %}"
-          class="card-img-top"
-          alt="..."
-        />
-        <div class="card-body">
-          <h5 class="card-title">{{ book['volumeInfo']['title'] }}</h5>
-          <p class="card-text cardText text-truncate">
-            {{ book['volumeInfo']['title'] }}
-          </p>
-        </div>
-        <a href="{{ url_for('reviews') }}" class="ms-auto mb-2 me-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-pen editModal"
-            viewBox="0 0 16 16"
+    <div class="col projects--tile col-3 h-100">
+      <form action="{{url_for('reviews')}}" method="POST" name="add_book_form">
+        <div
+          class="card bookCard embed-responsive embed-responsive-16by9 h-100"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+        >
+          <img
+            src="{% if book['volumeInfo']['imageLinks'] %}{{ book['volumeInfo']['imageLinks']['thumbnail'] }}{% else %}{{ url_for('static', filename='img/no-image-available.jpg') }}{% endif %}"
+            class="card-img-top tileImg"
+            alt="..."
+          />
+          <div class="card-body">
+            <h5 class="card-title text-truncate">
+              {{ book['volumeInfo']['title'] }}
+            </h5>
+            <p class="card-text cardText text-truncate">
+              {% if book['volumeInfo']['subtitle'] %}{{
+              book['volumeInfo']['subtitle'] }}{% else %}No subtitle
+              available.{% endif %}
+            </p>
+          </div>
+          <!-- Hidden Inputs img-src & book title -->
+          <input
+            type="hidden"
+            name="bookThumbnail"
+            value="{% if book['volumeInfo']['imageLinks'] %}{{ book['volumeInfo']['imageLinks']['thumbnail'] }}{% endif %}"
+          />
+          <input
+            type="hidden"
+            name="bookTitle"
+            id="bookTitleValue"
+            value="{{ book['volumeInfo']['title'] }}"
+          />
+          <button
+            href="{{ url_for('reviews') }}"
+            type="submit"
+            class="ms-auto mb-2 me-2 border-0 bg-light"
           >
-            <path
-              d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"
-            />
-          </svg>
-        </a>
-      </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="30"
+              height="30"
+              fill="currentColor"
+              class="bi bi-plus-square-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"
+              />
+            </svg>
+          </button>
+        </div>
+      </form>
     </div>
     {% endfor %}
   </div>
 </div>
 <div class="container">
-  <div class="row d-flex float-start">
-    {% for key, value in personal_reviews.items() %}
+  <div class="row">
     <div class="col">
+      <h3 class="display-4 row-bordered">My Books</h3>
+    </div>
+  </div>
+  <div class="row container-fluid d-flex float-start mb-4">
+    {% for book in my_books %}
+    <div class="col col-3 mb-4 mt-4">
       <div
         class="card bookCard"
         data-bs-toggle="modal"
         data-bs-target="#exampleModal"
-        style="width: 18rem"
       >
-        <img
-          src="{{ url_for('static', filename='img/atomic-habits.jpg') }}"
-          class="card-img-top"
-          alt="..."
-        />
+        <img src="{{ book['Image'] }}" class="card-img-top tileImg" alt="..." />
         <div class="card-body">
-          <h5 class="card-title">{{ key }}</h5>
+          <h5 class="card-title text-truncate">{{ book['Title'] }}</h5>
           <p class="card-text cardText text-truncate">
-            {{ value["Thoughts"] }}
+            {% if book['Thoughts'] %}{{ book['Thoughts'] }}{% else %}Add some
+            thoughts...{% endif %}
           </p>
         </div>
         <a href="{{ url_for('reviews') }}" class="ms-auto mb-2 me-2">

@@ -33,3 +33,15 @@
 .sliderContainer {
   position: relative;
 }
+
+.tileCards {
+  max-height: 18rem;
+}
+
+.tileImg {
+  max-height: 18rem;
+}
+
+.projects--tile {
+  transition: transform 0.7s ease;
+}

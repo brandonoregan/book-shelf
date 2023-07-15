@@ -3,6 +3,7 @@ import random
 import requests
 
 API_KEY = "AIzaSyB0QuYUYyUzgXbf6_LraR1wTltf4EAyQXs"
+API_URL = 'https://www.googleapis.com/books/v1/volumes'
 app = Flask(__name__)
 
 active_page = ''
@@ -14,18 +15,18 @@ public_reviews = {
 } 
 
 # Change this to a list that contains dicts. Atomic would be under title
-personal_reviews = {
-    "Atomic Habits" : 
+my_books = [
     {
-        "Thoughts" : "10/10. I really enjoyed this book, the one percent better idea really stuck with me.", 
-        "img" : "atomic-habits.jpg"
-        },
-    "Man's Search For Meaning" : 
+        'Title':"Atomic Habits",
+        'Thoughts': "10/10. I really enjoyed this book, the one percent better idea really stuck with me.",
+        "Image" : "static/img/atomic-habits.jpg"
+    },
     {
-        "Thoughts":"10/10 Core them of the book, he who has a strong enough why can overcome anything.",
-        "img" : "msfm.jpg"
-        }
-}
+        'Title':"Man's Search For Meaning",
+        'Thoughts':"",
+        "Image" : "static/img/msfm.jpg"
+    },
+]
 
 @app.route('/', methods = ['GET', 'POST'])
 def register():
@@ -70,7 +71,7 @@ def reviews():
         search_query = request.args.get('query')
 
         if search_query:
-            api_url = 'https://www.googleapis.com/books/v1/volumes'
+            api_url = API_URL
             params = {'q': f'intitle:{search_query}', 'key': API_KEY}
             response = requests.get(api_url, params=params)
         
@@ -81,23 +82,20 @@ def reviews():
                 print(books)
                 book_limit = books[:10]
 
-                # for book in book_limit:
-                #     title = book['volumeInfo']['title']
-                #     image_links = book['volumeInfo']['imageLinks']
-                #     thumbnail = image_links['thumbnail'] if image_links and 'thumbnail' in image_links else None
-                #     small_thumbnail = image_links['smallThumbnail'] if image_links and 'smallThumbnail' in image_links else None
+                return render_template("reviews.html", my_books=my_books, active_page=active_page, book_limit=book_limit, books_length=books_length)
 
-                #     print(f"Title: {title}")
-                #     print(f"Thumbnail: {thumbnail}")
-                #     print(f"Small Thumbnail: {small_thumbnail}")
+    if request.method == 'POST':
+        book_thumbnail = request.form.get('bookThumbnail')
+        book_title = request.form.get('bookTitle')
+        new_book = {
+            'Title': book_title,
+            'Thoughts': '',
+            'Image': book_thumbnail
+        }
+        my_books.append(new_book)
+        return render_template("reviews.html", my_books=my_books, active_page=active_page, books_length=books_length, book_thumbnail=book_thumbnail)
 
-                return render_template("reviews.html", personal_reviews=personal_reviews, active_page=active_page, book_limit=book_limit, books_length=books_length)
-            else:
-                print(f"API Error - Status Code: {response.status_code}")
-                print(f"Error Message: {response.text}")
-                return 'ERROR ERROR ERROR'
-        
-    return render_template("reviews.html", personal_reviews=personal_reviews, active_page=active_page, books_length=books_length)
+    return render_template("reviews.html", my_books=my_books, active_page=active_page, books_length=books_length)
 
 @app.route('/wish_list')
 def wish_list():

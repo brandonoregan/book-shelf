@@ -1,15 +1,5 @@
-{% extends "base.html" %}
-
-{% block javascript %}
-{% endblock %}
-
-{% block title %}
-Home | Book Shelf
-{% endblock %}
-
-{% block navbar %}
-      
-{{ super() }}
+{% extends "base.html" %} {% block javascript %} {% endblock %} {% block title
+%} Home | Book Shelf {% endblock %} {% block navbar %} {{ super() }}
 <!-- <ul class="navbar-nav ml-auto">
     <li class="nav-item">
         <a class="nav-link active" aria-current="page" href="{{ url_for('home') }}">Home</a>
@@ -24,71 +14,109 @@ Home | Book Shelf
         <a class="nav-link" href="{{ url_for('login') }}">Sign out</a>
     </li>
 </ul> -->
-{% endblock %}
-
-{% block pagetitle %}  
-Book Of The Month
-{% endblock %}
-{% block content %}
+{% endblock %} {% block pagetitle %} Book Of The Month {% endblock %} {% block
+content %}
 <div class="container mx-auto">
-    <div class="row ">
-        <div class="col-auto ">
-            <img class="bookMonth mx-auto pt-2" src="{{ url_for('static', filename='img/atomic-habits.jpg') }}" alt="Atomic Habits book cover">
-        </div>
-        <div class="col text-center">
-            <h2 class="bookMonthTitle">Atomic Habits - Tiny Changes, Remarkable Results</h2>
-            <p class="text-start">
-                No matter your goals, Atomic Habits offers a proven framework for improving--every day. James Clear, one of the world's leading experts on habit formation, reveals practical strategies that will teach you exactly how to form good habits, break bad ones, and master the tiny behaviors that lead to remarkable results.
-            </p>
-            <p class="text-start">If you're having trouble changing your habits, the problem isn't you. The problem is your system. Bad habits repeat themselves again and again not because you don't want to change, but because you have the wrong system for change. You do not rise to the level of your goals. You fall to the level of your systems. Here, you'll get a proven system that can take you to new heights.</p>
-            <p class="text-start">Clear is known for his ability to distill complex topics into simple behaviors that can be easily applied to daily life and work. Here, he draws on the most proven ideas from biology, psychology, and neuroscience to create an easy-to-understand guide for making good habits inevitable and bad habits impossible. Along the way, readers will be inspired and entertained with true stories from Olympic gold medalists, award-winning artists, business leaders, life-saving physicians, and star comedians who have used the science of small habits to master their craft and vault to the top of their field.</p>
-            <p class="text-start">Learn how to:
-                make time for new habits (even when life gets crazy);
-                overcome a lack of motivation and willpower;
-                design your environment to make success easier;
-                get back on track when you fall off course;
-                ...and much more.</p>
-            <p class="text-start">Atomic Habits will reshape the way you think about progress and success, and give you the tools and strategies you need to transform your habits--whether you are a team looking to win a championship, an organization hoping to redefine an industry, or simply an individual who wishes to quit smoking, lose weight, reduce stress, or achieve any other goal.</p>
-        </div>
-        <div>
-            <h3 class="display-4 row-bordered mt-5">Reviews</h3>
-            
-        </div>
-        <div class="row">
-            <div class="col">
-                <ul class="list-unstyled">
-                    <li>
-                        <div class="card mb-3 mt-3">
-                            <div class="container card-body p-3">
-                                <h5 class="card-title row-bordered ps-3">Leave a review.</h5>
-                                <form  action="{{ url_for('home') }}" method="POST">
-                                    <div class="input-group">
-                                        <input class="container p-3" placeholder="What did you think of the book?" type="text" name="review" id="review">
-                                        <button type="submit" class="ms-auto mt-2 btn btn-secondary btn-sm ">Submit</button>
-                                    </div>                       
-                                </form>
-                            </div>
-                        </div>
-                    </li>
-                    {% for key, value in public_reviews.items()  %}
-                        <li>
-                            <div class="card mt-3">
-                                <div class="card-body">
-                                    <h5 class="card-title row-bordered ps-3">{{ key }}</h5>
-                                    <p class="card-text ps-3 pe-2">{{ value }}</p>
-                                </div>
-                            </div>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
+  <div class="row">
+    <div class="col-auto">
+      <img
+        class="bookMonth mx-auto pt-2"
+        src="{{ url_for('static', filename='img/atomic-habits.jpg') }}"
+        alt="Atomic Habits book cover"
+      />
     </div>
+    <div class="col text-center">
+      <h2 class="bookMonthTitle">
+        Atomic Habits - Tiny Changes, Remarkable Results
+      </h2>
+      <p class="text-start">
+        No matter your goals, Atomic Habits offers a proven framework for
+        improving--every day. James Clear, one of the world's leading experts on
+        habit formation, reveals practical strategies that will teach you
+        exactly how to form good habits, break bad ones, and master the tiny
+        behaviors that lead to remarkable results.
+      </p>
+      <p class="text-start">
+        If you're having trouble changing your habits, the problem isn't you.
+        The problem is your system. Bad habits repeat themselves again and again
+        not because you don't want to change, but because you have the wrong
+        system for change. You do not rise to the level of your goals. You fall
+        to the level of your systems. Here, you'll get a proven system that can
+        take you to new heights.
+      </p>
+      <p class="text-start">
+        Clear is known for his ability to distill complex topics into simple
+        behaviors that can be easily applied to daily life and work. Here, he
+        draws on the most proven ideas from biology, psychology, and
+        neuroscience to create an easy-to-understand guide for making good
+        habits inevitable and bad habits impossible. Along the way, readers will
+        be inspired and entertained with true stories from Olympic gold
+        medalists, award-winning artists, business leaders, life-saving
+        physicians, and star comedians who have used the science of small habits
+        to master their craft and vault to the top of their field.
+      </p>
+      <p class="text-start">
+        Learn how to: make time for new habits (even when life gets crazy);
+        overcome a lack of motivation and willpower; design your environment to
+        make success easier; get back on track when you fall off course; ...and
+        much more.
+      </p>
+      <p class="text-start">
+        Atomic Habits will reshape the way you think about progress and success,
+        and give you the tools and strategies you need to transform your
+        habits--whether you are a team looking to win a championship, an
+        organization hoping to redefine an industry, or simply an individual who
+        wishes to quit smoking, lose weight, reduce stress, or achieve any other
+        goal.
+      </p>
+    </div>
+    <div>
+      <h3 class="display-4 row-bordered mt-5">Reviews</h3>
+    </div>
+    <div class="row">
+      <div class="col">
+        <ul class="list-unstyled">
+          <li>
+            <div class="card mb-3 mt-3">
+              <div class="container card-body p-3">
+                <h5 class="card-title row-bordered ps-3">Leave a review.</h5>
+                <form action="{{ url_for('home') }}" method="POST">
+                  <div class="input-group">
+                    <input
+                      class="container p-3"
+                      placeholder="What did you think of the book?"
+                      type="text"
+                      name="review"
+                      id="review"
+                    />
+                    <button
+                      type="submit"
+                      class="ms-auto mt-2 btn btn-secondary btn-sm"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </li>
+          {% for key, value in public_reviews.items() %}
+          <li>
+            <div class="card mt-3">
+              <div class="card-body">
+                <h5 class="card-title row-bordered ps-3">{{ key }}</h5>
+                <p class="card-text ps-3 pe-2">{{ value }}</p>
+              </div>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
-{% endblock %}
+{% endblock %} {% block scripts %}
 
-{% block scripts %}
-    
-<script  src="{{ url_for('static', filename='js/home.js') }}"></script>
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
 
 {% endblock scripts %}
