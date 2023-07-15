@@ -1,13 +1,35 @@
 .row-bordered {
-    position: relative;
-  }
-  
+  position: relative;
+}
+
 .row-bordered:after {
-content: "";
-display: block;
-border-bottom: 1px solid #ccc;
-position: absolute;
-bottom: 0;
-left: 3px;
-right: 3px;
+  content: "";
+  display: block;
+  border-bottom: 1px solid #ccc;
+  position: absolute;
+  bottom: 0;
+  left: 3px;
+  right: 3px;
+}
+
+.left--arrow {
+  position: absolute;
+  z-index: 10;
+  top: 35%;
+  width: 30px;
+  left: 2%;
+  color: black;
+}
+
+.right--arrow {
+  position: absolute;
+  z-index: 10;
+  top: 35%;
+  left: 94%;
+  width: 30px;
+  color: black;
+}
+
+.sliderContainer {
+  position: relative;
 }

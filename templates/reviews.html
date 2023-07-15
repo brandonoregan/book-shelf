@@ -25,12 +25,10 @@ block content %}
         everything you've just read. Use this virtual library to store the books
         you've read and summarise the parts that mean the most to you.
       </h5>
-      <button class="left--arrow">Left</button>
-      <button class="right--arrow">Right</button>
     </div>
   </div>
 </div>
-<div class="container d-flex justify-content-center mb-4">
+<div class="container-fluid d-flex justify-content-center mb-4">
   <div class="row">
     <div class="col col-12">
       <div class="input-group rounded">
@@ -39,45 +37,75 @@ block content %}
           action="{{url_for('reviews')}}"
           id="reviewsSearchBar"
         >
-          <input
-            name="query"
-            type="search"
-            class="form-control border-black border-end-0"
-            placeholder="Search"
-            aria-label="Search"
-            aria-describedby="search-addon"
-          />
-          <button
-            type="submit"
-            for="reviewsSearchBar"
-            class="btn btn-primary input-group-text border-black border-start-0"
-            id="search-addon"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-search"
-              viewBox="0 0 16 16"
+          <div class="container d-flex">
+            <input
+              name="query"
+              type="search"
+              class="form-control border-black"
+              placeholder="Search"
+              aria-label="Search"
+              aria-describedby="search-addon"
+            />
+            <button
+              type="submit"
+              for="reviewsSearchBar"
+              class="btn btn-primary input-group-text border-black ms-1 bg-dark-subtle d-flex justify-content-center align-content-center"
+              id="search-addon"
             >
-              <path
-                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
-              />
-            </svg>
-          </button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="black"
+                class="bi bi-search"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+                />
+              </svg>
+            </button>
+          </div>
         </form>
       </div>
     </div>
   </div>
 </div>
-<div class="container mb-5 overflow-x-hidden">
+<div class="container mb-5 overflow-x-hidden sliderContainer">
   <div class="row d-flex flex-nowrap justify-content-start">
-    {% for book in books %}
-    <div
-      class="projects--tile col-3"
-      style="width: 18rem; transition: transform 0.7s ease"
-    >
+    {% if books_length > 0 %}
+    <a class="left--arrow w-25">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="40"
+        height="40"
+        fill="currentColor"
+        class="bi bi-arrow-left-circle"
+        viewBox="0 0 16 16"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"
+        />
+      </svg>
+    </a>
+    <a class="right--arrow w-25">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="40"
+        height="40"
+        fill="currentColor"
+        class="bi bi-arrow-right-circle"
+        viewBox="0 0 16 16"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"
+        />
+      </svg>
+    </a>
+    {% endif %} {% for book in book_limit %}
+    <div class="projects--tile col-3" style="transition: transform 0.7s ease">
       <div
         role="button"
         class="card bookCard embed-responsive embed-responsive-16by9"

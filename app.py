@@ -2,7 +2,7 @@ from flask import Flask, url_for, redirect, render_template, request
 import random
 import requests
 
-key = "AIzaSyB0QuYUYyUzgXbf6_LraR1wTltf4EAyQXs"
+API_KEY = "AIzaSyB0QuYUYyUzgXbf6_LraR1wTltf4EAyQXs"
 app = Flask(__name__)
 
 active_page = ''
@@ -65,17 +65,20 @@ def home():
 @app.route('/reviews', methods=['GET', 'POST'])
 def reviews():
     active_page = 'reviews'
+    books_length = 0
     if request.method == 'GET':
         search_query = request.args.get('query')
 
         if search_query:
             api_url = 'https://www.googleapis.com/books/v1/volumes'
-            params = {'q': f'intitle:{search_query}', 'key': "AIzaSyB0QuYUYyUzgXbf6_LraR1wTltf4EAyQXs"}
+            params = {'q': f'intitle:{search_query}', 'key': API_KEY}
             response = requests.get(api_url, params=params)
         
             if response.status_code == 200:
                 data = response.json()
                 books = data.get('items', [])
+                books_length = len(books)
+                print(books)
                 book_limit = books[:10]
 
                 # for book in book_limit:
@@ -88,13 +91,13 @@ def reviews():
                 #     print(f"Thumbnail: {thumbnail}")
                 #     print(f"Small Thumbnail: {small_thumbnail}")
 
-                return render_template("reviews.html", personal_reviews=personal_reviews, active_page=active_page, books=book_limit)
+                return render_template("reviews.html", personal_reviews=personal_reviews, active_page=active_page, book_limit=book_limit, books_length=books_length)
             else:
                 print(f"API Error - Status Code: {response.status_code}")
                 print(f"Error Message: {response.text}")
                 return 'ERROR ERROR ERROR'
         
-    return render_template("reviews.html", personal_reviews=personal_reviews, active_page=active_page)
+    return render_template("reviews.html", personal_reviews=personal_reviews, active_page=active_page, books_length=books_length)
 
 @app.route('/wish_list')
 def wish_list():
