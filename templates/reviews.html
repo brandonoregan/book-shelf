@@ -111,7 +111,7 @@ block content %}
         <div
           class="card bookCard embed-responsive embed-responsive-16by9 h-100"
           data-bs-toggle="modal"
-          data-bs-target="#exampleModal"
+          data-bs-target="#exampleModal{{ loop.index }}"
         >
           <img
             src="{% if book['volumeInfo']['imageLinks'] %}{{ book['volumeInfo']['imageLinks']['thumbnail'] }}{% else %}{{ url_for('static', filename='img/no-image-available.jpg') }}{% endif %}"
@@ -176,7 +176,7 @@ block content %}
       <div
         class="card bookCard"
         data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
+        data-bs-target="#exampleModal{{ loop.index }}"
       >
         <img src="{{ book['Image'] }}" class="card-img-top tileImg" alt="..." />
         <div class="card-body">
@@ -200,23 +200,22 @@ block content %}
             />
           </svg>
         </a>
-        <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Launch demo modal
-                      </button> -->
       </div>
     </div>
     <!-- Modal -->
     <div
       class="modal fade"
-      id="exampleModal"
+      id="exampleModal{{ loop.index }}"
       tabindex="-1"
-      aria-labelledby="exampleModalLabel"
+      aria-labelledby="exampleModalLabel{{ loop.index }}"
       aria-hidden="true"
     >
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              {{ book['Title'] }}
+            </h1>
             <button
               type="button"
               class="btn-close"
@@ -224,7 +223,10 @@ block content %}
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body">...</div>
+          <div class="modal-body">
+            {% if book['Thoughts'] %}{{ book['Thoughts'] }}{% else %}Add some
+            thoughts...{% endif %}
+          </div>
           <div class="modal-footer">
             <button
               type="button"
