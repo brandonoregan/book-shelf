@@ -79,21 +79,33 @@ def reviews():
                 data = response.json()
                 books = data.get('items', [])
                 books_length = len(books)
-                print(books)
                 book_limit = books[:10]
 
                 return render_template("reviews.html", my_books=my_books, active_page=active_page, book_limit=book_limit, books_length=books_length)
 
     if request.method == 'POST':
-        book_thumbnail = request.form.get('bookThumbnail')
-        book_title = request.form.get('bookTitle')
-        new_book = {
-            'Title': book_title,
-            'Thoughts': '',
-            'Image': book_thumbnail
-        }
-        my_books.append(new_book)
-        return render_template("reviews.html", my_books=my_books, active_page=active_page, books_length=books_length, book_thumbnail=book_thumbnail)
+        if request.args.get("f") == "f1":
+            book_thumbnail = request.form.get('bookThumbnail')
+            book_title = request.form.get('bookTitle')
+            print(book_title)
+            new_book = {
+                'Title': book_title,
+                'Thoughts': '',
+                'Image': book_thumbnail
+            }
+            my_books.append(new_book)
+            return render_template("reviews.html", my_books=my_books, active_page=active_page, books_length=books_length, book_thumbnail=book_thumbnail)
+        
+        if request.args.get("f") == "f2":
+            book_title = request.form.get('bookTitleRemove')
+            print(book_title)
+            for book in my_books:
+                if book['Title'] == book_title:
+                    print(book_title)
+                    my_books.remove(book)
+                    print(my_books)
+                    print('THIS IS ITT !!!!!!!!!!!!!!!')
+                    return render_template("reviews.html", my_books=my_books, active_page=active_page, books_length=books_length)
 
     return render_template("reviews.html", my_books=my_books, active_page=active_page, books_length=books_length)
 

@@ -28,7 +28,7 @@ block content %}
     </div>
   </div>
 </div>
-<div class="container-fluid d-flex justify-content-center mb-4">
+<div class="container-fluid d-flex justify-content-center">
   <div class="row">
     <div class="col col-12">
       <div class="input-group rounded">
@@ -107,9 +107,13 @@ block content %}
     </a>
     {% endif %} {% for book in book_limit %}
     <div class="col projects--tile col-3 h-100">
-      <form action="{{url_for('reviews')}}" method="POST" name="add_book_form">
+      <form
+        action="{{url_for('reviews', f='f1')}}"
+        method="POST"
+        name="add_book_form"
+      >
         <div
-          class="card bookCard embed-responsive embed-responsive-16by9 h-100"
+          class="card bookCard embed-responsive embed-responsive-16by9 h-100 mt-4"
           data-bs-toggle="modal"
           data-bs-target="#exampleModal{{ loop.index }}"
         >
@@ -172,12 +176,24 @@ block content %}
   </div>
   <div class="row container-fluid d-flex float-start mb-4">
     {% for book in my_books %}
-    <div class="col col-3 mb-4 mt-4">
+    <form
+      action="{{ url_for('reviews', f='f2') }}"
+      method="POST"
+      name="remove_card_button"
+      class="col col-3 mb-4 mt-4"
+    >
+      <input
+        type="hidden"
+        name="bookTitleRemove"
+        id="bookTitleValueRemove"
+        value="{{ book['Title'] }}"
+      />
       <div
         class="card bookCard"
         data-bs-toggle="modal"
         data-bs-target="#exampleModal{{ loop.index }}"
       >
+        <button type="submit" class="btn-close removeCardButton"></button>
         <img src="{{ book['Image'] }}" class="card-img-top tileImg" alt="..." />
         <div class="card-body">
           <h5 class="card-title text-truncate">{{ book['Title'] }}</h5>
@@ -186,22 +202,20 @@ block content %}
             thoughts...{% endif %}
           </p>
         </div>
-        <a href="{{ url_for('reviews') }}" class="ms-auto mb-2 me-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-pen editModal"
-            viewBox="0 0 16 16"
-          >
-            <path
-              d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"
-            />
-          </svg>
-        </a>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-pen editModal ms-auto mb-2 me-2"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"
+          />
+        </svg>
       </div>
-    </div>
+    </form>
     <!-- Modal -->
     <div
       class="modal fade"
