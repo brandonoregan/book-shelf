@@ -1,10 +1,13 @@
-from flask import Flask, url_for, redirect, render_template, request
+from flask import Flask, url_for, redirect, render_template, request, flash
 import random
 import requests
+import os
 
+# os.urandom(12)
 API_KEY = "AIzaSyB0QuYUYyUzgXbf6_LraR1wTltf4EAyQXs"
 API_URL = 'https://www.googleapis.com/books/v1/volumes'
 app = Flask(__name__)
+app.secret_key = 'something_secret'
 
 active_page = ''
 users = {}
@@ -48,7 +51,6 @@ def register():
         username = request.form.get('username')
         password = request.form.get('password')
         users[username] = password
-        print(users)
         return redirect('login')
     return render_template("index.html", user='users')
 
@@ -59,8 +61,10 @@ def login():
         password = request.form.get('password')
         current_user = username
         if username in users and users[username] == password:
-            print(f"current_user = {current_user}")
             return redirect('home')
+            
+        else:
+            flash("Invalid username or password. Please check your credentials and try again.")
     return render_template("login.html")
 
 @app.route('/home', methods = ['GET', 'POST'])

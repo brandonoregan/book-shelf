@@ -1,7 +1,15 @@
 {% extends "base.html" %} {% block title %} Home | Book Shelf {% endblock %} {%
-block navbar %} {{ super() }} {% endblock %} {% block pagetitle %}Add to your
-wish list{% endblock %} {% block content %}
-
+block navbar %} {{ super() }} {% endblock %} {% block pagetitle %}Wish List{%
+endblock %} {% block content %}
+<div class="container d-flex justify-content-center mb-3">
+  <div class="row">
+    <div class="col col-12">
+      <h5 class="text-center text-body-emphasis">
+        Search for books to add to your wish list.
+      </h5>
+    </div>
+  </div>
+</div>
 <div class="container-fluid d-flex justify-content-center">
   <div class="row">
     <div class="col col-12">

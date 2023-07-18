@@ -21,8 +21,10 @@
     </ul>
   </div>
 </nav>
-{% endblock %} {% block pagetitle %} Welcome Back! {% endblock %} {% block
-content %}
+{% for message in get_flashed_messages() %}
+<div class="alert alert-danger text-center" role="alert">{{ message }}</div>
+{% endfor %} {% endblock %} {% block pagetitle %} Welcome Back! {% endblock %}
+{% block content %}
 <div class="container mt-5 pt-5">
   <div class="row">
     <div class="col-12 col-sm-8 col-md-6 m-auto">

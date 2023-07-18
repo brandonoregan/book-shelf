@@ -1,36 +1,26 @@
-{% extends "base.html" %} {% block javascript %} {% endblock %} {% block title
-%} Reviews | Book Shelf {% endblock %} {% block navbar %} {{ super() }}
-
-<!-- <ul class="navbar-nav ml-auto">
-    <li class="nav-item">
-        <a class="nav-link"  href="{{ url_for('home') }}">Home</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="{{ url_for('reviews') }}">Reviews</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('wish_list') }}">Wish List</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('login') }}">Sign out</a>
-    </li>
-</ul> -->
-{% endblock %} {% block pagetitle %} Personal Book Reviews {% endblock %} {%
-block content %}
+{% extends "base.html" %}
+<!-- JINJA BREAK -->
+{% block javascript %} {% endblock %}
+<!-- JINJA BREAK -->
+{% block title %} Reviews | Book Shelf {% endblock %}
+<!-- JINJA BREAK -->
+{% block navbar %} {{ super() }} {% endblock %} {% block pagetitle %} Personal
+Book Reviews {% endblock %} {% block content %}
 <div class="container d-flex justify-content-center mb-3">
   <div class="row">
     <div class="col col-12">
       <h5 class="text-center text-body-emphasis">
         There's nothing worse then reading a great book and forgetting
-        everything you've just read. Use this virtual library to store the books
-        you've read and summarise the parts that mean the most to you.
+        everything you've just read. <br />
+        Use this virtual library to store the books you've read and summarise
+        the parts that mean the most to you.
       </h5>
     </div>
   </div>
 </div>
 <div class="container-fluid d-flex justify-content-center">
   <div class="row">
-    <div class="col col-12">
+    <div class="col-12">
       <div class="input-group rounded">
         <form
           method="GET"
@@ -38,7 +28,7 @@ block content %}
           id="reviewsSearchBar"
           name="query_form"
         >
-          <div class="container d-flex">
+          <div class="container d-flex w-100">
             <input
               name="query"
               type="search"
