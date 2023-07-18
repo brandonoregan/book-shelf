@@ -185,7 +185,6 @@ wish list{% endblock %} {% block content %}
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
           </div>
         </div>
       </div>
@@ -259,9 +258,6 @@ wish list{% endblock %} {% block content %}
               >
                 Close
               </button>
-              <button type="button" class="btn btn-primary">
-                Save changes
-              </button>
             </div>
           </div>
         </div>
@@ -270,7 +266,8 @@ wish list{% endblock %} {% block content %}
     {% endfor %}
   </div>
 </div>
-{% endblock %} {% block scripts %}
+{% endblock %} {% block footer_link %} {{ super() }} {% endblock %}{% block
+scripts %}
 
 <!-- JavaScript  -->
 <script src="{{ url_for('static', filename='js/reviews.js') }}"></script>

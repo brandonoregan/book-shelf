@@ -115,7 +115,8 @@ content %}
     </div>
   </div>
 </div>
-{% endblock %} {% block scripts %}
+{% endblock %} {% block footer_link %} {{ super() }} {% endblock %} {% block
+scripts %}
 
 <script src="{{ url_for('static', filename='js/home.js') }}"></script>
 

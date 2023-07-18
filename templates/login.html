@@ -74,7 +74,11 @@ content %}
 <a href="{{ url_for('home') }}">Home</a>
 <a href="{{ url_for('reviews') }}">Reviews</a>
 <a href="{{ url_for('wish_list') }}">Wish List</a>
-{% endblock %} {% block scripts %}
+{% endblock %} {% block footer_link %}
+<a href="{{ url_for('register') }}">
+  <img src="{{ url_for('static', filename='/img/book-svg-2.svg') }}" alt="" />
+</a>
+{% endblock %}{% block scripts %}
 
 <!-- JavaScript -->
 <!-- <script  src="{{ url_for('static', filename='js/login.js') }}"></script> -->

@@ -124,7 +124,7 @@ block content %}
           <img
             src="{% if book['volumeInfo']['imageLinks'] %}{{ book['volumeInfo']['imageLinks']['thumbnail'] }}{% else %}{{ url_for('static', filename='img/no-image-available.jpg') }}{% endif %}"
             class="card-img-top tileImg"
-            alt="..."
+            alt="{{ book['volumeInfo']['title'] }}"
           />
           <div class="card-body">
             <h5 class="card-title text-truncate">
@@ -206,7 +206,6 @@ block content %}
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
           </div>
         </div>
       </div>
@@ -341,7 +340,8 @@ block content %}
     {% endfor %}
   </div>
 </div>
-{% endblock %} {% block scripts %}
+{% endblock %} {% block footer_link %} {{ super() }} {% endblock %} {% block
+scripts %}
 
 <!-- JavaScript  -->
 <script src="{{ url_for('static', filename='js/reviews.js') }}"></script>

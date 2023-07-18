@@ -93,10 +93,14 @@
     </div>
     <footer class="bg-dark py-2 mt-auto">
       <div class="container text-light text-center">
-        <img
-          src="{{ url_for('static', filename='/img/book-svg-2.svg') }}"
-          alt=""
-        />
+        {% block footer_link %}
+        <a href="{{ url_for('home') }}">
+          <img
+            src="{{ url_for('static', filename='/img/book-svg-2.svg') }}"
+            alt=""
+          />
+        </a>
+        {% endblock %}
         <p class="display-5 mb-1">Book Shelf</p>
         <small class="text-white-50"
           >&copy; Copyright by Brandon O'Regan. All rights reserved</small
