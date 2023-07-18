@@ -28,6 +28,19 @@ my_books = [
     },
 ]
 
+my_wishlist = [
+    {
+        'Title':"Changing World",
+        'Thoughts': "Absolutely brilliant!",
+        "Image" : "static/img/changing-world.jpg"
+    },
+    {
+        'Title':"Breath",
+        'Thoughts':"Breath taking.",
+        "Image" : "static/img/breath.jpg"
+    },
+     ]
+
 @app.route('/', methods = ['GET', 'POST'])
 def register():
 
@@ -87,7 +100,6 @@ def reviews():
         if request.args.get("f") == "f1":
             book_thumbnail = request.form.get('bookThumbnail')
             book_title = request.form.get('bookTitle')
-            print(book_title)
             new_book = {
                 'Title': book_title,
                 'Thoughts': '',
@@ -98,21 +110,74 @@ def reviews():
         
         if request.args.get("f") == "f2":
             book_title = request.form.get('bookTitleRemove')
-            print(book_title)
             for book in my_books:
                 if book['Title'] == book_title:
-                    print(book_title)
                     my_books.remove(book)
-                    print(my_books)
-                    print('THIS IS ITT !!!!!!!!!!!!!!!')
+                    return render_template("reviews.html", my_books=my_books, active_page=active_page, books_length=books_length)
+        
+        if request.args.get("f") == "f3":
+            book_title = request.form.get('bookTitleEdit')
+            new_thoughts = request.form.get('new_thoughts')
+            for book in my_books:
+                if book['Title'] == book_title:
+                    print(book)
+                    print(book['Thoughts'])
+                    book['Thoughts'] = new_thoughts
                     return render_template("reviews.html", my_books=my_books, active_page=active_page, books_length=books_length)
 
     return render_template("reviews.html", my_books=my_books, active_page=active_page, books_length=books_length)
 
-@app.route('/wish_list')
+@app.route('/wish_list', methods=['GET', 'POST'])
 def wish_list():
     active_page = 'wish_list'
-    return render_template("wish_list.html", active_page=active_page)
+    books_length = 0
+
+    if request.method == 'GET':
+        search_query = request.args.get('query')
+
+        if search_query:
+            api_url = API_URL
+            params = {'q': f'intitle:{search_query}', 'key': API_KEY}
+            response = requests.get(api_url, params=params)
+        
+            if response.status_code == 200:
+                data = response.json()
+                books = data.get('items', [])
+                books_length = len(books)
+                book_limit = books[:10]
+
+                return render_template("wish_list.html", my_wishlist=my_wishlist, active_page=active_page, book_limit=book_limit, books_length=books_length)
+
+    if request.method == 'POST':
+        if request.args.get("f") == "f1":
+            book_thumbnail = request.form.get('bookThumbnail')
+            book_title = request.form.get('bookTitle')
+            new_book = {
+                'Title': book_title,
+                'Thoughts': '',
+                'Image': book_thumbnail
+            }
+            my_wishlist.append(new_book)
+            return render_template("wish_list.html", my_wishlist=my_wishlist, active_page=active_page, books_length=books_length, book_thumbnail=book_thumbnail)
+        
+        if request.args.get("f") == "f2":
+            book_title = request.form.get('bookTitleRemove')
+            for book in my_wishlist:
+                if book['Title'] == book_title:
+                    my_wishlist.remove(book)
+                    return render_template("wish_list.html", my_wishlist=my_wishlist, active_page=active_page, books_length=books_length)
+        
+        if request.args.get("f") == "f3":
+            book_title = request.form.get('bookTitleEdit')
+            new_thoughts = request.form.get('new_thoughts')
+            for book in my_wishlist:
+                if book['Title'] == book_title:
+                    print(book)
+                    print(book['Thoughts'])
+                    book['Thoughts'] = new_thoughts
+                    return render_template("wish_list.html", my_wishlist=my_wishlist, active_page=active_page, books_length=books_length)
+        
+    return render_template("wish_list.html", active_page=active_page, my_wishlist=my_wishlist, books_length=books_length)
 
 
 if __name__ == '__main__':
