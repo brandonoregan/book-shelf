@@ -55,3 +55,7 @@
   color: red;
   background-color: red;
 }
+
+.bookCard {
+  cursor: pointer;
+}

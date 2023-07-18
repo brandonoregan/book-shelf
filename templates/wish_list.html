@@ -79,7 +79,10 @@ wish list{% endblock %} {% block content %}
         />
       </svg>
     </a>
-    {% endif %} {% for book in book_limit %}
+    {% endif %}
+    <!-- Loop for API Search Query Results -->
+    <!-- Loop for API Search Query Results -->
+    {% for book in book_limit %}
     <div class="col projects--tile col-3 h-100">
       <form
         action="{{url_for('wish_list', f='f1')}}"
@@ -87,9 +90,9 @@ wish list{% endblock %} {% block content %}
         name="add_book_form"
       >
         <div
-          class="card bookCard embed-responsive embed-responsive-16by9 h-100 mt-4"
+          class="card bookCard embed-responsive embed-responsive-16by9 h-100 mt-4 cursor-pointer"
           data-bs-toggle="modal"
-          data-bs-target="#exampleModal{{ loop.index }}"
+          data-bs-target="#bookInformationModal{{ loop.index }}"
         >
           <img
             src="{% if book['volumeInfo']['imageLinks'] %}{{ book['volumeInfo']['imageLinks']['thumbnail'] }}{% else %}{{ url_for('static', filename='img/no-image-available.jpg') }}{% endif %}"
@@ -118,6 +121,12 @@ wish list{% endblock %} {% block content %}
             id="bookTitleValue"
             value="{{ book['volumeInfo']['title'] }}"
           />
+          <input
+            type="hidden"
+            name="bookDescription"
+            id="bookDescription"
+            value="{{ book['volumeInfo']['description'] }}"
+          />
           <button
             href="{{ url_for('wish_list') }}"
             type="submit"
@@ -139,6 +148,48 @@ wish list{% endblock %} {% block content %}
         </div>
       </form>
     </div>
+    <!-- API Search Query Modal -->
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="bookInformationModal{{ loop.index }}"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              {{ book['volumeInfo']['title'] }}
+            </h1>
+
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            {% if book['volumeInfo']['subtitle'] %} {{
+            book['volumeInfo']['subtitle'] }} <br /><br />
+            {{ book['volumeInfo']['description'] }} {% else %} {{
+            book['volumeInfo']['description'] }} {% endif %}
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
     {% endfor %}
   </div>
 </div>
@@ -149,6 +200,8 @@ wish list{% endblock %} {% block content %}
     </div>
   </div>
   <div class="row container-fluid d-flex float-start mb-4">
+    <!-- Loop for personal book shelf/wishlist -->
+    <!-- Loop for personal book shelf/wishlist -->
     {% for book in my_wishlist %}
     <div class="col col col-3">
       <form
@@ -166,7 +219,7 @@ wish list{% endblock %} {% block content %}
         <div
           class="card bookCard"
           data-bs-toggle="modal"
-          data-bs-target="#exampleModal{{ loop.index }}"
+          data-bs-target="#wish_list_modal{{ loop.index }}"
         >
           <button type="submit" class="btn-close removeCardButton"></button>
           <img
@@ -174,93 +227,45 @@ wish list{% endblock %} {% block content %}
             class="card-img-top tileImg"
             alt="..."
           />
-          <div class="card-body">
-            <h5 class="card-title text-truncate">{{ book['Title'] }}</h5>
-            <p class="card-text cardText text-truncate">
-              {% if book['Thoughts'] %}{{ book['Thoughts'] }}{% else %}Add some
-              thoughts...{% endif %}
-            </p>
-          </div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-pen editModal ms-auto mb-2 me-2"
-            viewBox="0 0 16 16"
-          >
-            <path
-              d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"
-            />
-          </svg>
         </div>
       </form>
-      <!-- Modal -->
-      <form
-        name="editModalForm"
-        action="{{url_for('wish_list', f='f3')}}"
-        method="post"
+      <div
+        class="modal fade"
+        id="wish_list_modal{{ loop.index }}"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
       >
-        <input
-          type="hidden"
-          name="bookTitleEdit"
-          id="bookTitleValueEdit"
-          value="{{ book['Title'] }}"
-        />
-        <div
-          class="modal fade"
-          id="exampleModal{{ loop.index }}"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel{{ loop.index }}"
-          aria-hidden="true"
-        >
-          <div
-            class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-          >
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">
-                  {{ book['Title'] }}
-                </h1>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body text-truncate container-fluid">
-                <textarea
-                  name="new_thoughts"
-                  id="newThoughts"
-                  cols="28"
-                  rows="5"
-                  placeholder="Three things I don't want to forget:"
-                  class="container-fluid"
-                >
-  {% if book['Thoughts'] %}{{ book['Thoughts'] }}{% else %}Add some thoughts...{% endif %}
-                </textarea>
-              </div>
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  Close
-                </button>
-                <button
-                  for="editModalForm"
-                  type="submit"
-                  class="btn btn-primary"
-                >
-                  Save changes
-                </button>
-              </div>
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">
+                {{ book['Title'] }}
+              </h1>
+
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">{{ book['Description'] }}</div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" class="btn btn-primary">
+                Save changes
+              </button>
             </div>
           </div>
         </div>
-      </form>
+      </div>
     </div>
     {% endfor %}
   </div>
