@@ -35,12 +35,14 @@
 
 .removeCardButton {
   position: absolute;
-  top: 5;
-  right: 0;
+  top: 2%;
+  right: 2%;
   font-weight: 500;
-  font-size: 1.5rem;
-  color: red;
-  background-color: red;
+  font-size: 1.2rem;
+  /* color: white; */
+  /* background-color: black; */
+  background-color: transparent;
+  border: none;
 }
 
 .bookCard {
