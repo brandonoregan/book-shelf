@@ -72,8 +72,10 @@ block content %}
     </div>
   </div>
 </div>
-<div class="container mb-5 overflow-x-hidden sliderContainer">
-  <div class="row d-flex flex-nowrap justify-content-start">
+<div class="row">
+  <div
+    class="col col-1 leftContainer d-flex justify-content-end align-items-center"
+  >
     {% if books_length > 0 %}
     <a class="left--arrow w-25">
       <svg
@@ -90,6 +92,123 @@ block content %}
         />
       </svg>
     </a>
+    {% endif %}
+  </div>
+  <div class="col col-10 sliderBody">
+    <div class="container mb-5 overflow-x-hidden sliderContainer">
+      <div class="row d-flex flex-nowrap justify-content-start">
+        <!-- Loop for API Search Query Results -->
+        <!-- Loop for API Search Query Results -->
+        <!-- Loop for API Search Query Results -->
+        {% for book in book_limit %}
+        <div class="col projects--tile col-3 h-100">
+          <form
+            action="{{url_for('reviews', f='f1')}}"
+            method="POST"
+            name="add_book_form"
+          >
+            <div
+              class="card bookCard embed-responsive embed-responsive-16by9 h-100 mt-4"
+              data-bs-toggle="modal"
+              data-bs-target="#bookInformationModal{{ loop.index }}"
+            >
+              <img
+                src="{% if book['volumeInfo']['imageLinks'] %}{{ book['volumeInfo']['imageLinks']['thumbnail'] }}{% else %}{{ url_for('static', filename='img/no-image-available.jpg') }}{% endif %}"
+                class="card-img-top tileImg"
+                alt="{{ book['volumeInfo']['title'] }}"
+              />
+              <div class="card-body">
+                <h5 class="card-title text-truncate">
+                  {{ book['volumeInfo']['title'] }}
+                </h5>
+                <p class="card-text cardText text-truncate">
+                  {% if book['volumeInfo']['subtitle'] %}{{
+                  book['volumeInfo']['subtitle'] }}{% else %}No subtitle
+                  available.{% endif %}
+                </p>
+              </div>
+              <!-- Hidden Inputs img-src & book title -->
+              <input
+                type="hidden"
+                name="bookThumbnail"
+                value="{% if book['volumeInfo']['imageLinks'] %}{{ book['volumeInfo']['imageLinks']['thumbnail'] }}{% endif %}"
+              />
+              <input
+                type="hidden"
+                name="bookTitle"
+                id="bookTitleValue"
+                value="{{ book['volumeInfo']['title'] }}"
+              />
+              <button
+                href="{{ url_for('reviews') }}"
+                type="submit"
+                class="ms-auto mb-2 me-2 border-0 bg-light"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="30"
+                  height="30"
+                  fill="currentColor"
+                  class="bi bi-plus-square-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </form>
+        </div>
+        <!-- API Search Query Modal -->
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="bookInformationModal{{ loop.index }}"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                  {{ book['volumeInfo']['title'] }}
+                </h1>
+
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                {% if book['volumeInfo']['subtitle'] %} {{
+                book['volumeInfo']['subtitle'] }} <br /><br />
+                {{ book['volumeInfo']['description'] }} {% else %} {{
+                book['volumeInfo']['description'] }} {% endif %}
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div
+    class="col col-1 rightContainer d-flex justify-content-flex-start align-items-center"
+  >
+    {% if books_length > 0 %}
     <a class="right--arrow w-25">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -106,113 +225,9 @@ block content %}
       </svg>
     </a>
     {% endif %}
-    <!-- Loop for API Search Query Results -->
-    <!-- Loop for API Search Query Results -->
-    <!-- Loop for API Search Query Results -->
-    {% for book in book_limit %}
-    <div class="col projects--tile col-3 h-100">
-      <form
-        action="{{url_for('reviews', f='f1')}}"
-        method="POST"
-        name="add_book_form"
-      >
-        <div
-          class="card bookCard embed-responsive embed-responsive-16by9 h-100 mt-4"
-          data-bs-toggle="modal"
-          data-bs-target="#bookInformationModal{{ loop.index }}"
-        >
-          <img
-            src="{% if book['volumeInfo']['imageLinks'] %}{{ book['volumeInfo']['imageLinks']['thumbnail'] }}{% else %}{{ url_for('static', filename='img/no-image-available.jpg') }}{% endif %}"
-            class="card-img-top tileImg"
-            alt="{{ book['volumeInfo']['title'] }}"
-          />
-          <div class="card-body">
-            <h5 class="card-title text-truncate">
-              {{ book['volumeInfo']['title'] }}
-            </h5>
-            <p class="card-text cardText text-truncate">
-              {% if book['volumeInfo']['subtitle'] %}{{
-              book['volumeInfo']['subtitle'] }}{% else %}No subtitle
-              available.{% endif %}
-            </p>
-          </div>
-          <!-- Hidden Inputs img-src & book title -->
-          <input
-            type="hidden"
-            name="bookThumbnail"
-            value="{% if book['volumeInfo']['imageLinks'] %}{{ book['volumeInfo']['imageLinks']['thumbnail'] }}{% endif %}"
-          />
-          <input
-            type="hidden"
-            name="bookTitle"
-            id="bookTitleValue"
-            value="{{ book['volumeInfo']['title'] }}"
-          />
-          <button
-            href="{{ url_for('reviews') }}"
-            type="submit"
-            class="ms-auto mb-2 me-2 border-0 bg-light"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="30"
-              height="30"
-              fill="currentColor"
-              class="bi bi-plus-square-fill"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"
-              />
-            </svg>
-          </button>
-        </div>
-      </form>
-    </div>
-    <!-- API Search Query Modal -->
-    <!-- Modal -->
-    <div
-      class="modal fade"
-      id="bookInformationModal{{ loop.index }}"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">
-              {{ book['volumeInfo']['title'] }}
-            </h1>
-
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            {% if book['volumeInfo']['subtitle'] %} {{
-            book['volumeInfo']['subtitle'] }} <br /><br />
-            {{ book['volumeInfo']['description'] }} {% else %} {{
-            book['volumeInfo']['description'] }} {% endif %}
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    {% endfor %}
   </div>
 </div>
+
 <div class="container">
   <div class="row">
     <div class="col">
@@ -224,7 +239,7 @@ block content %}
     <!-- Loop for personal books-->
     <!-- Loop for personal books-->
     {% for book in my_books %}
-    <div class="col col col-3">
+    <div class="col col-3">
       <form
         action="{{ url_for('reviews', f='f2') }}"
         method="POST"

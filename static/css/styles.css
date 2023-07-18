@@ -12,21 +12,8 @@
   right: 3px;
 }
 
-.left--arrow {
-  position: absolute;
-  z-index: 10;
-  top: 35%;
-  width: 30px;
-  left: 2%;
-  color: black;
-}
-
+.left--arrow,
 .right--arrow {
-  position: absolute;
-  z-index: 10;
-  top: 35%;
-  left: 94%;
-  width: 30px;
   color: black;
 }
 
