@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block javascript %} {% endblock %} {% block title
 %} Log in | Book Shelf {% endblock %} {% block navbar %}
-<nav class="navbar navbar-expand-sm bg-body-tertiary text-bg-dark">
+<nav class="navbar navbar-expand-sm navBar">
   <div class="container-fluid">
     {% block navbar_logo_link %}
     <a class="navbar-brand" href="{{ url_for('render_register') }}">
@@ -64,7 +64,7 @@
               placeholder="Password"
             />
             <div class="text-center mt-3">
-              <button class="btn btn-primary">Login</button>
+              <button class="btn btn-secondary">Login</button>
               <a href="{{ url_for('render_register')}}" class="nav-link"
                 >Don't have an account ?</a
               >

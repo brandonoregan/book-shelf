@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block javascript %} {% endblock %} {% block title
 %} Sign Up {% endblock %} {% block navbar %}
-<nav class="navbar navbar-expand-sm bg-body-tertiary text-bg-dark">
+<nav class="navbar navbar-expand-sm navBar">
   <div class="container-fluid">
     {% block navbar_logo_link %}
     <a class="navbar-brand" href="{{ url_for('render_register') }}">
@@ -26,7 +26,7 @@ content %}
 <div class="container d-flex justify-content-center mb-3">
   <div class="row">
     <div class="col col-12">
-      <h5 class="text-center text-body-emphasis">
+      <h5 class="text-center text-body-emphasis subTitle">
         Join in, read along, have fun!
       </h5>
     </div>
@@ -69,7 +69,7 @@ content %}
               placeholder="Password"
             />
             <div class="text-center mt-3">
-              <button class="btn btn-primary">Sign up</button>
+              <button class="btn btn-secondary">Sign up</button>
               <a href="{{ url_for('login') }}" class="nav-link"
                 >Already have an account ?</a
               >
@@ -87,4 +87,4 @@ content %}
 <a href="{{ url_for('render_register') }}">
   <img src="{{ url_for('static', filename='/img/book-svg-2.svg') }}" alt="" />
 </a>
-{% endblock %} 
+{% endblock %}

@@ -1,4 +1,5 @@
 from flask import Flask, url_for, redirect, render_template, request, flash
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 import random
 import requests
 
@@ -7,6 +8,7 @@ API_URL = 'https://www.googleapis.com/books/v1/volumes'
 
 app = Flask(__name__)
 app.secret_key = '123456789'
+login_manager = LoginManager()
 
 active_page = ''
 users = {}

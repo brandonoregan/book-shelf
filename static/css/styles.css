@@ -1,8 +1,33 @@
+:root {
+  --primary-1: #faf0e6;
+  --primary-1-darker: hsl(34, 56%, 91%);
+  --primary-2: #fff0db;
+  --primary-3: #eed9c4;
+  --primary-4: #e4d5b7;
+  --primary-5: #d9b99b;
+
+  --google-font-1: "Courgette", cursive;
+}
+
 .row-bordered {
   position: relative;
 }
 
 .row-bordered:after {
+  content: "";
+  display: block;
+  border-bottom: 2px solid #ccc;
+  position: absolute;
+  bottom: 0;
+  left: 30px;
+  right: 30px;
+}
+
+.row-bordered-full {
+  position: relative;
+}
+
+.row-bordered-full:after {
   content: "";
   display: block;
   border-bottom: 1px solid #ccc;
@@ -49,6 +74,29 @@
   cursor: pointer;
 }
 
-/* .searchBar {
-  width: 30rem;
-} */
+.bookMonth {
+  /* border: 2px solid black; */
+}
+
+body {
+  background-color: var(--primary-1);
+}
+
+.navBar {
+  background-color: var(--primary-1);
+  border-bottom: 1px solid #ccc;
+}
+
+.personalBooks {
+  border: 1.5px solid black;
+}
+
+.subTitle {
+  font-family: var(--google-font-1);
+  font-size: 2rem;
+}
+
+.subTitleSm {
+  font-family: var(--google-font-1);
+  font-size: 1.5rem;
+}

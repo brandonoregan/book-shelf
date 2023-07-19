@@ -4,7 +4,7 @@
 <div class="container d-flex justify-content-center mb-3">
   <div class="row">
     <div class="col col-12">
-      <h5 class="text-center text-body-emphasis">
+      <h5 class="text-center text-body-emphasis subTitle">
         Join in, read along, share your thoughts! <br />
       </h5>
     </div>
@@ -14,7 +14,7 @@
   <div class="row d-flex justify-content-center">
     <div class="col-auto">
       <img
-        class="bookMonth mx-auto pt-2"
+        class="bookMonth mx-auto shadow"
         src="{{ url_for('static', filename='img/atomic-habits.jpg') }}"
         alt="Atomic Habits book cover"
       />
@@ -57,15 +57,17 @@
       </p>
     </div>
     <div>
-      <h3 class="display-4 row-bordered mt-5">Reviews</h3>
+      <h3 class="display-4 row-bordered-full mt-5">Reviews</h3>
     </div>
     <div class="row">
       <div class="col">
         <ul class="list-unstyled">
           <li>
-            <div class="card mb-3 mt-3">
+            <div class="card mb-3 mt-3 shadow">
               <div class="container card-body p-3">
-                <h5 class="card-title row-bordered ps-3">Leave a review.</h5>
+                <h5 class="card-title row-bordered-full ps-3">
+                  Leave a review.
+                </h5>
                 <form action="{{ url_for('home') }}" method="POST">
                   <div class="input-group">
                     <input
@@ -88,9 +90,9 @@
           </li>
           {% for key, value in public_reviews.items() %}
           <li>
-            <div class="card mt-3">
+            <div class="card mt-3 shadow">
               <div class="card-body">
-                <h5 class="card-title row-bordered ps-3">{{ key }}</h5>
+                <h5 class="card-title row-bordered-full ps-3">{{ key }}</h5>
                 <p class="card-text ps-3 pe-2">{{ value }}</p>
               </div>
             </div>
