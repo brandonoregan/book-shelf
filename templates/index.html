@@ -3,7 +3,7 @@
 <nav class="navbar navbar-expand-sm bg-body-tertiary text-bg-dark">
   <div class="container-fluid">
     {% block navbar_logo_link %}
-    <a class="navbar-brand" href="{{ url_for('register') }}">
+    <a class="navbar-brand" href="{{ url_for('render_register') }}">
       <img
         src="{{ url_for('static', filename='/img/book-svg-2.svg') }}"
         alt=""
@@ -53,7 +53,7 @@ content %}
               />
             </svg>
           </div>
-          <form action="{{ url_for('register') }}" method="POST">
+          <form action="{{ url_for('add_user') }}" method="POST">
             <input
               type="text"
               name="username"
@@ -80,11 +80,11 @@ content %}
     </div>
   </div>
 </div>
-<a href="{{ url_for('home') }}">Home</a>
+<a href="{{ url_for('render_home') }}">Home</a>
 <a href="{{ url_for('reviews') }}">Reviews</a>
 <a href="{{ url_for('wish_list') }}">Wish List</a>
 {% endblock %} {% block footer_link %}
-<a href="{{ url_for('register') }}">
+<a href="{{ url_for('render_register') }}">
   <img src="{{ url_for('static', filename='/img/book-svg-2.svg') }}" alt="" />
 </a>
 {% endblock %} {% block scripts %}

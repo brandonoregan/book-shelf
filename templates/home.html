@@ -1,21 +1,6 @@
 {% extends "base.html" %} {% block javascript %} {% endblock %} {% block title
-%} Home | Book Shelf {% endblock %} {% block navbar %} {{ super() }}
-<!-- <ul class="navbar-nav ml-auto">
-    <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="{{ url_for('home') }}">Home</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('reviews') }}">Reviews</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('wish_list') }}">Wish List</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('login') }}">Sign out</a>
-    </li>
-</ul> -->
-{% endblock %} {% block pagetitle %} Book Of The Month {% endblock %} {% block
-content %}
+%} Home | Book Shelf {% endblock %} {% block navbar %} {{ super() }} {% endblock
+%} {% block pagetitle %} Book Of The Month {% endblock %} {% block content %}
 <div class="container d-flex justify-content-center mb-3">
   <div class="row">
     <div class="col col-12">

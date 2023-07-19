@@ -1,23 +1,24 @@
 from flask import Flask, url_for, redirect, render_template, request, flash
 import random
 import requests
-import os
 
-# os.urandom(12)
 API_KEY = "AIzaSyB0QuYUYyUzgXbf6_LraR1wTltf4EAyQXs"
 API_URL = 'https://www.googleapis.com/books/v1/volumes'
+
 app = Flask(__name__)
-app.secret_key = 'something_secret'
+app.secret_key = '123456789'
 
 active_page = ''
 users = {}
+
+# Contains default reviews for display purposes
 public_reviews = {
     "Brandon":"This book is easily one of the best books you'll ever read. For me, a great measure of a good book is one you want to read again. I've read this book 3 times so far. Could not reccomend this book highly enough!",
     "Tom": "What a great Book!",
     "Mark": "Absolutely hated that book!",
 } 
 
-# Change this to a list that contains dicts. Atomic would be under title
+# Contains default books for display purposes
 my_books = [
     {
         'Title':"Atomic Habits",
@@ -31,6 +32,7 @@ my_books = [
     },
 ]
 
+# Contains default book for display purposes
 my_wishlist = [
     {
         'Title':"Principles for Navigating Big Debt Crisis",
@@ -44,41 +46,60 @@ my_wishlist = [
     },
      ]
 
-@app.route('/', methods = ['GET', 'POST'])
-def register():
 
-    if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
-        users[username] = password
-        return redirect('login')
-    return render_template("index.html", user='users')
+@app.route('/')
+def render_register():
+    '''This function will render index.html'''
 
-@app.route('/login', methods = ['GET', 'POST'])
-def login():
-    if request.method == "POST":
-        username = request.form.get('username')
-        password = request.form.get('password')
-        current_user = username
-        if username in users and users[username] == password:
-            return redirect('home')
-            
-        else:
-            flash("Invalid username or password. Please check your credentials and try again.")
+    return render_template("index.html")
+
+
+@app.route('/', methods = ['POST'])
+def add_user():
+    '''Create a user and add user to the local database and render the login page.'''
+        
+    username = request.form.get('username')
+    password = request.form.get('password')
+    users[username] = password
+    return redirect('login')
+
+
+@app.route('/login')
+def render_login():
+    '''This function will render login.html'''
     return render_template("login.html")
 
-@app.route('/home', methods = ['GET', 'POST'])
-def home():
+
+@app.route('/login', methods = ['POST'])
+def login():
+    
+    username = request.form.get('username')
+    password = request.form.get('password')
+    current_user = username
+    if username in users and users[username] == password:
+        return redirect('home')  
+    else:
+        flash("Invalid username or password. Please check your credentials and try again.")
+        return render_template('login.html')
+    
+
+@app.route('/home')
+def render_home():
+
     active_page = 'home'
-    current_user = f'User{random.randint(0,5000)}'
-    if request.method == "POST":
-        review = request.form.get('review')
-        public_reviews[current_user] = review
-        print(public_reviews)
-        return render_template("home.html", public_reviews = public_reviews)
-        
 
     return render_template("home.html", public_reviews = public_reviews, active_page=active_page)
+
+
+@app.route('/home', methods = ['POST'])
+def home():
+
+    active_page = 'home'
+    current_user = f'User{random.randint(0,5000)}'
+    review = request.form.get('review')
+    public_reviews[current_user] = review
+    return render_template("home.html", public_reviews = public_reviews, active_page=active_page)
+
 
 @app.route('/reviews', methods=['GET', 'POST'])
 def reviews():
