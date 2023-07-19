@@ -10,6 +10,7 @@ app.secret_key = '123456789'
 
 active_page = ''
 users = {}
+slider_showing = False
 
 # Contains default reviews for display purposes
 public_reviews = {
@@ -47,6 +48,22 @@ my_wishlist = [
      ]
 
 
+def handle_api(search_query):
+    '''Use seach query to search Google Books API and return the top 10 books if successful'''
+    api_url = API_URL
+    params = {'q': f'intitle:{search_query}', 'key': API_KEY}
+    response = requests.get(api_url, params=params)
+
+    if response.status_code == 200:
+        data = response.json()
+        books = data.get('items', [])
+        book_limit = books[:10]
+        slider_showing = True
+        return book_limit, slider_showing
+    else:
+        return 0, []
+
+
 @app.route('/')
 def render_register():
     '''This function will render index.html'''
@@ -61,23 +78,23 @@ def add_user():
     username = request.form.get('username')
     password = request.form.get('password')
     users[username] = password
-    return redirect('login')
+    return redirect(url_for('render_login'))
 
 
 @app.route('/login')
 def render_login():
-    '''This function will render login.html'''
+    '''This function will render login.html template'''
     return render_template("login.html")
 
 
 @app.route('/login', methods = ['POST'])
 def login():
-    
+    '''Retirieves login information and checks for correct username and passowrd. Redirected to the home page if login successful or error message occurs if unsuccessful. '''
     username = request.form.get('username')
     password = request.form.get('password')
     current_user = username
     if username in users and users[username] == password:
-        return redirect('home')  
+        return redirect(url_for('render_home'))  
     else:
         flash("Invalid username or password. Please check your credentials and try again.")
         return render_template('login.html')
@@ -85,7 +102,7 @@ def login():
 
 @app.route('/home')
 def render_home():
-
+    '''Sets the active page variable to home and renders the home.html template'''
     active_page = 'home'
 
     return render_template("home.html", public_reviews = public_reviews, active_page=active_page)
@@ -93,107 +110,101 @@ def render_home():
 
 @app.route('/home', methods = ['POST'])
 def home():
-
+    '''Sets the active page variable to home, sets the current user to a random identifier then retrieves and adds new review to public reviews lisdictionary then renders home.html template'''
     active_page = 'home'
     current_user = f'User{random.randint(0,5000)}'
     review = request.form.get('review')
     public_reviews[current_user] = review
     return render_template("home.html", public_reviews = public_reviews, active_page=active_page)
+    
 
-
-@app.route('/reviews', methods=['GET', 'POST'])
-def reviews():
+@app.route('/reviews')
+def render_reviews():
+    '''Render the reviews.html template and display API results if a query has been entered'''
     active_page = 'reviews'
-    books_length = 0
-    if request.method == 'GET':
-        search_query = request.args.get('query')
+    slider_showing = False
+    search_query = request.args.get('query')
 
-        if search_query:
-            api_url = API_URL
-            params = {'q': f'intitle:{search_query}', 'key': API_KEY}
-            response = requests.get(api_url, params=params)
-        
-            if response.status_code == 200:
-                data = response.json()
-                books = data.get('items', [])
-                books_length = len(books)
-                book_limit = books[:10]
+    if search_query:
+        book_limit, slider_showing = handle_api(search_query)
 
-                return render_template("reviews.html", my_books=my_books, active_page=active_page, book_limit=book_limit, books_length=books_length)
+        return render_template("reviews.html", my_wishlist=my_wishlist, active_page=active_page, book_limit=book_limit, slider_showing=slider_showing, my_books=my_books)
+    else:
+       book_limit =  []
+       return render_template("reviews.html", active_page=active_page, my_wishlist=my_wishlist, slider_showing=slider_showing, my_books=my_books)
 
-    if request.method == 'POST':
-        if request.args.get("f") == "f1":
-            book_thumbnail = request.form.get('bookThumbnail')
-            book_title = request.form.get('bookTitle')
-            new_book = {
-                'Title': book_title,
-                'Thoughts': '',
-                'Image': book_thumbnail,
-            }
-            my_books.append(new_book)
-            return render_template("reviews.html", my_books=my_books, active_page=active_page, books_length=books_length, book_thumbnail=book_thumbnail)
-        
-        if request.args.get("f") == "f2":
-            book_title = request.form.get('bookTitleRemove')
-            for book in my_books:
-                if book['Title'] == book_title:
-                    my_books.remove(book)
-                    return render_template("reviews.html", my_books=my_books, active_page=active_page, books_length=books_length)
-        
-        if request.args.get("f") == "f3":
-            book_title = request.form.get('bookTitleEdit')
-            new_thoughts = request.form.get('new_thoughts')
-            for book in my_books:
-                if book['Title'] == book_title:
-                    print(book)
-                    print(book['Thoughts'])
-                    book['Thoughts'] = new_thoughts
-                    return render_template("reviews.html", my_books=my_books, active_page=active_page, books_length=books_length)
 
-    return render_template("reviews.html", my_books=my_books, active_page=active_page, books_length=books_length)
+@app.route('/reviews', methods=['POST'])
+def reviews():
+    '''Handle each post request of the reviews function '''
+    active_page = 'reviews'
 
-@app.route('/wish_list', methods=['GET', 'POST'])
+    if request.args.get("f") == "f1":
+        book_thumbnail = request.form.get('bookThumbnail')
+        book_title = request.form.get('bookTitle')
+        new_book = {
+            'Title': book_title,
+            'Thoughts': '',
+            'Image': book_thumbnail,
+        }
+        my_books.append(new_book)
+        return render_template("reviews.html", my_books=my_books, active_page=active_page, book_thumbnail=book_thumbnail)
+    
+    if request.args.get("f") == "f2":
+        book_title = request.form.get('bookTitleRemove')
+        for book in my_books:
+            if book['Title'] == book_title:
+                my_books.remove(book)
+                return render_template("reviews.html", my_books=my_books, active_page=active_page)
+    
+    if request.args.get("f") == "f3":
+        book_title = request.form.get('bookTitleEdit')
+        new_thoughts = request.form.get('new_thoughts')
+        for book in my_books:
+            if book['Title'] == book_title:
+                book['Thoughts'] = new_thoughts
+                return render_template("reviews.html", my_books=my_books, active_page=active_page)
+
+
+    
+@app.route('/wish_list')
+def render_wish_list():
+    active_page = 'wish_list'
+    search_query = request.args.get('query')
+    slider_showing = False
+
+    if search_query:
+        book_limit, slider_showing = handle_api(search_query)
+
+        return render_template("wish_list.html", my_wishlist=my_wishlist, active_page=active_page, book_limit=book_limit, slider_showing=slider_showing)
+    else:
+       book_limit =  []
+       return render_template("wish_list.html", active_page=active_page, my_wishlist=my_wishlist, slider_showing=slider_showing)
+
+
+@app.route('/wish_list', methods=['POST'])
 def wish_list():
     active_page = 'wish_list'
-    books_length = 0
 
-    if request.method == 'GET':
-        search_query = request.args.get('query')
-
-        if search_query:
-            api_url = API_URL
-            params = {'q': f'intitle:{search_query}', 'key': API_KEY}
-            response = requests.get(api_url, params=params)
-        
-            if response.status_code == 200:
-                data = response.json()
-                books = data.get('items', [])
-                books_length = len(books)
-                book_limit = books[:10]
-
-                return render_template("wish_list.html", my_wishlist=my_wishlist, active_page=active_page, book_limit=book_limit, books_length=books_length)
-
-    if request.method == 'POST':
-        if request.args.get("f") == "f1":
-            book_thumbnail = request.form.get('bookThumbnail')
-            book_title = request.form.get('bookTitle')
-            book_description = request.form.get('bookDescription')
-            new_book = {
-                'Title': book_title,
-                'Image': book_thumbnail,
-                'Description' : book_description,
-            }
-            my_wishlist.append(new_book)
-            return render_template("wish_list.html", my_wishlist=my_wishlist, active_page=active_page, books_length=books_length, book_thumbnail=book_thumbnail)
-        
-        if request.args.get("f") == "f2":
-            book_title = request.form.get('bookTitleRemove')
-            for book in my_wishlist:
-                if book['Title'] == book_title:
-                    my_wishlist.remove(book)
-                    return render_template("wish_list.html", my_wishlist=my_wishlist, active_page=active_page, books_length=books_length)
-        
-    return render_template("wish_list.html", active_page=active_page, my_wishlist=my_wishlist, books_length=books_length)
+    if request.args.get("f") == "f1":
+        book_thumbnail = request.form.get('bookThumbnail')
+        book_title = request.form.get('bookTitle')
+        book_description = request.form.get('bookDescription')
+        new_book = {
+            'Title': book_title,
+            'Image': book_thumbnail,
+            'Description' : book_description,
+        }
+        my_wishlist.append(new_book)
+        return render_template("wish_list.html", my_wishlist=my_wishlist, active_page=active_page, book_thumbnail=book_thumbnail)
+    
+    if request.args.get("f") == "f2":
+        book_title = request.form.get('bookTitleRemove')
+        for book in my_wishlist:
+            if book['Title'] == book_title:
+                my_wishlist.remove(book)
+                return render_template("wish_list.html", my_wishlist=my_wishlist, active_page=active_page)
+        return render_template("wish_list.html", my_wishlist=my_wishlist, active_page=active_page)
 
 
 if __name__ == '__main__':

@@ -16,7 +16,7 @@ endblock %} {% block content %}
       <div class="input-group rounded">
         <form
           method="GET"
-          action="{{url_for('wish_list')}}"
+          action="{{url_for('render_wish_list')}}"
           id="reviewsSearchBar"
           name="query_form"
         >
@@ -58,7 +58,7 @@ endblock %} {% block content %}
   <div
     class="col col-1 leftContainer d-flex justify-content-end align-items-center"
   >
-    {% if books_length > 0 %}
+    {% if slider_showing %}
     <a class="left--arrow w-25">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -195,7 +195,7 @@ endblock %} {% block content %}
   <div
     class="col col-1 rightContainer d-flex justify-content-flex-start align-items-center"
   >
-    {% if books_length > 0 %}
+    {% if slider_showing %}
     <a class="right--arrow w-25">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -302,10 +302,4 @@ endblock %} {% block content %}
     {% endfor %}
   </div>
 </div>
-{% endblock %} {% block footer_link %} {{ super() }} {% endblock %}{% block
-scripts %}
-
-<!-- JavaScript  -->
-<script src="{{ url_for('static', filename='js/reviews.js') }}"></script>
-
-{% endblock scripts %}
+{% endblock %} {% block footer_link %} {{ super() }} {% endblock %}
