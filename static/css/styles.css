@@ -83,8 +83,13 @@ body {
 }
 
 .navBar {
-  background-color: var(--primary-1);
-  border-bottom: 1px solid #ccc;
+  /* background-color: var(--primary-1);
+  border-bottom: 1px solid #ccc; */
+  color: white;
+}
+
+.navBar:hover {
+  color: white !important;
 }
 
 .personalBooks {
@@ -99,4 +104,9 @@ body {
 .subTitleSm {
   font-family: var(--google-font-1);
   font-size: 1.5rem;
+}
+
+.active {
+  color: white !important;
+  text-decoration: underline;
 }

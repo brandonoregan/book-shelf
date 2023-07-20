@@ -1,27 +1,6 @@
 {% extends "base.html" %} {% block javascript %} {% endblock %} {% block title
-%} Log in | Book Shelf {% endblock %} {% block navbar %}
-<nav class="navbar navbar-expand-sm navBar">
-  <div class="container-fluid">
-    {% block navbar_logo_link %}
-    <a class="navbar-brand" href="{{ url_for('render_register') }}">
-      <img
-        src="{{ url_for('static', filename='/img/book-svg-2.svg') }}"
-        alt=""
-      />
-      Book Shelf
-    </a>
-    {% endblock %}
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('render_register') }}">Sign up</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="">Log in</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-{% for message in get_flashed_messages() %}
+%} Log in | Book Shelf {% endblock %} {% block navbar %} {{ super() }} {% for
+message in get_flashed_messages() %}
 <div class="alert alert-danger text-center" role="alert">{{ message }}</div>
 {% endfor %} {% endblock %} {% block pagetitle %} Welcome Back! {% endblock %}
 {% block content %}

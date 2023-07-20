@@ -1,27 +1,6 @@
 {% extends "base.html" %} {% block javascript %} {% endblock %} {% block title
-%} Sign Up {% endblock %} {% block navbar %}
-<nav class="navbar navbar-expand-sm navBar">
-  <div class="container-fluid">
-    {% block navbar_logo_link %}
-    <a class="navbar-brand" href="{{ url_for('render_register') }}">
-      <img
-        src="{{ url_for('static', filename='/img/book-svg-2.svg') }}"
-        alt=""
-      />
-      Book Shelf
-    </a>
-    {% endblock %}
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="#">Sign up</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('login') }}">Log in</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-{% endblock %} {% block pagetitle %} Sign Up Today! {% endblock %} {% block
+%} Sign Up {% endblock %} {% block navbar %} {{ super() }} {% endblock
+  %} {% block pagetitle %} Sign Up Today! {% endblock %} {% block
 content %}
 <div class="container d-flex justify-content-center mb-3">
   <div class="row">

@@ -8,11 +8,37 @@ API_URL = 'https://www.googleapis.com/books/v1/volumes'
 
 app = Flask(__name__)
 app.secret_key = '123456789'
-login_manager = LoginManager()
 
 active_page = ''
-users = {}
+users = []
 slider_showing = False
+
+login_manager = LoginManager()
+login_manager.login_view = 'render_login'
+login_manager.init_app(app)
+
+class User(UserMixin):
+
+    def __init__(self, user_id, username, password ):
+        self.user_id = user_id
+        self.username = username
+        self.password = password
+
+    def is_active(self):
+        return True
+
+    def get_id(self):
+        return str(self.user_id)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    user_id = int(user_id)
+    for user in users:
+        if user.user_id == user_id:
+            return user
+    return None
+
 
 # Contains default reviews for display purposes
 public_reviews = {
@@ -69,24 +95,28 @@ def handle_api(search_query):
 @app.route('/')
 def render_register():
     '''This function will render index.html'''
+    active_page = 'sign_up'
 
-    return render_template("index.html")
+    return render_template("index.html", active_page=active_page, user=current_user)
 
 
 @app.route('/', methods = ['POST'])
 def add_user():
     '''Create a user and add user to the local database and render the login page.'''
-        
     username = request.form.get('username')
     password = request.form.get('password')
-    users[username] = password
-    return redirect(url_for('render_login'))
+    user_id = len(users)
+    new_user = User(username=username, password=password, user_id=user_id)
+    users.append(new_user)
+    login_user(new_user, remember=True)
+    return redirect(url_for('render_home'))
 
 
 @app.route('/login')
 def render_login():
+    active_page = 'login'
     '''This function will render login.html template'''
-    return render_template("login.html")
+    return render_template("login.html", active_page=active_page, user=current_user)
 
 
 @app.route('/login', methods = ['POST'])
@@ -94,20 +124,36 @@ def login():
     '''Retirieves login information and checks for correct username and passowrd. Redirected to the home page if login successful or error message occurs if unsuccessful. '''
     username = request.form.get('username')
     password = request.form.get('password')
-    current_user = username
-    if username in users and users[username] == password:
-        return redirect(url_for('render_home'))  
+    user = None
+    for user_info in users:
+        if user_info.username == username:
+            user = user_info
+            print(user)
+            break
+
+    if user and user.password == password:
+        login_user(user, remember=True)
+        return redirect(url_for('render_home'))
     else:
         flash("Invalid username or password. Please check your credentials and try again.")
-        return render_template('login.html')
+        return render_template('login.html', user=current_user)
+
     
 
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('render_login'))
+
+
 @app.route('/home')
+@login_required
 def render_home():
     '''Sets the active page variable to home and renders the home.html template'''
     active_page = 'home'
 
-    return render_template("home.html", public_reviews = public_reviews, active_page=active_page)
+    return render_template("home.html", public_reviews = public_reviews, active_page=active_page, user=current_user)
 
 
 @app.route('/home', methods = ['POST'])
@@ -117,7 +163,7 @@ def home():
     current_user = f'User{random.randint(0,5000)}'
     review = request.form.get('review')
     public_reviews[current_user] = review
-    return render_template("home.html", public_reviews = public_reviews, active_page=active_page)
+    return render_template("home.html", public_reviews = public_reviews, active_page=active_page, user=current_user)
     
 
 @app.route('/reviews')
@@ -130,10 +176,10 @@ def render_reviews():
     if search_query:
         book_limit, slider_showing = handle_api(search_query)
 
-        return render_template("reviews.html", my_wishlist=my_wishlist, active_page=active_page, book_limit=book_limit, slider_showing=slider_showing, my_books=my_books)
+        return render_template("reviews.html", my_wishlist=my_wishlist, active_page=active_page, book_limit=book_limit, slider_showing=slider_showing, my_books=my_books, user=current_user)
     else:
        book_limit =  []
-       return render_template("reviews.html", active_page=active_page, my_wishlist=my_wishlist, slider_showing=slider_showing, my_books=my_books)
+       return render_template("reviews.html", active_page=active_page, my_wishlist=my_wishlist, slider_showing=slider_showing, my_books=my_books, user=current_user)
 
 
 @app.route('/reviews', methods=['POST'])
@@ -150,14 +196,14 @@ def reviews():
             'Image': book_thumbnail,
         }
         my_books.append(new_book)
-        return render_template("reviews.html", my_books=my_books, active_page=active_page, book_thumbnail=book_thumbnail)
+        return render_template("reviews.html", my_books=my_books, active_page=active_page, book_thumbnail=book_thumbnail, user=current_user)
     
     if request.args.get("f") == "f2":
         book_title = request.form.get('bookTitleRemove')
         for book in my_books:
             if book['Title'] == book_title:
                 my_books.remove(book)
-                return render_template("reviews.html", my_books=my_books, active_page=active_page)
+                return render_template("reviews.html", my_books=my_books, active_page=active_page, user=current_user)
     
     if request.args.get("f") == "f3":
         book_title = request.form.get('bookTitleEdit')
@@ -165,7 +211,7 @@ def reviews():
         for book in my_books:
             if book['Title'] == book_title:
                 book['Thoughts'] = new_thoughts
-                return render_template("reviews.html", my_books=my_books, active_page=active_page)
+                return render_template("reviews.html", my_books=my_books, active_page=active_page, user=current_user)
 
 
     
@@ -178,10 +224,10 @@ def render_wish_list():
     if search_query:
         book_limit, slider_showing = handle_api(search_query)
 
-        return render_template("wish_list.html", my_wishlist=my_wishlist, active_page=active_page, book_limit=book_limit, slider_showing=slider_showing)
+        return render_template("wish_list.html", my_wishlist=my_wishlist, active_page=active_page, book_limit=book_limit, slider_showing=slider_showing, user=current_user)
     else:
        book_limit =  []
-       return render_template("wish_list.html", active_page=active_page, my_wishlist=my_wishlist, slider_showing=slider_showing)
+       return render_template("wish_list.html", active_page=active_page, my_wishlist=my_wishlist, slider_showing=slider_showing, user=current_user)
 
 
 @app.route('/wish_list', methods=['POST'])
@@ -198,15 +244,15 @@ def wish_list():
             'Description' : book_description,
         }
         my_wishlist.append(new_book)
-        return render_template("wish_list.html", my_wishlist=my_wishlist, active_page=active_page, book_thumbnail=book_thumbnail)
+        return render_template("wish_list.html", my_wishlist=my_wishlist, active_page=active_page, book_thumbnail=book_thumbnail, user=current_user)
     
     if request.args.get("f") == "f2":
         book_title = request.form.get('bookTitleRemove')
         for book in my_wishlist:
             if book['Title'] == book_title:
                 my_wishlist.remove(book)
-                return render_template("wish_list.html", my_wishlist=my_wishlist, active_page=active_page)
-        return render_template("wish_list.html", my_wishlist=my_wishlist, active_page=active_page)
+                return render_template("wish_list.html", my_wishlist=my_wishlist, active_page=active_page, user=current_user)
+        return render_template("wish_list.html", my_wishlist=my_wishlist, active_page=active_page, user=current_user)
 
 
 if __name__ == '__main__':

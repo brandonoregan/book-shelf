@@ -30,10 +30,10 @@
   <body>
     <div class="content-wrap d-flex flex-column min-vh-100">
       {% block navbar %}
-      <nav class="navbar navbar-expand-md navBar">
+      <nav class="navbar navbar-expand-md navBar bg-dark">
         <div class="container-fluid">
           <a
-            class="navbar-brand"
+            class="navbar-brand navBar"
             href="{% if active_page == 'home' %}{{ url_for('render_home') }}{% elif active_page == 'reviews' %}{{ url_for('render_home') }}{% elif active_page == 'wish_list' %}{{ url_for('render_home') }}{% endif %}"
           >
             <img
@@ -58,9 +58,10 @@
             id="navbarNav"
           >
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
+              {% if user.is_authenticated %}
+              <li class="nav-item navBar">
                 <a
-                  class="nav-link {% if active_page == 'home' %}active{% endif %}"
+                  class="navBar nav-link {% if active_page == 'home' %}active{% endif %}"
                   aria-current="page"
                   href="{{ url_for('render_home') }}"
                   >Home</a
@@ -68,23 +69,40 @@
               </li>
               <li class="nav-item">
                 <a
-                  class="nav-link {% if active_page == 'reviews' %}active{% endif %}"
+                  class="navBar nav-link {% if active_page == 'reviews' %}active{% endif %}"
                   href="{{ url_for('render_reviews') }}"
                   >Reviews</a
                 >
               </li>
               <li class="nav-item">
                 <a
-                  class="nav-link {% if active_page == 'wish_list' %}active{% endif %}"
+                  class="navBar nav-link {% if active_page == 'wish_list' %}active{% endif %}"
                   href="{{ url_for('wish_list') }}"
                   >Wish List</a
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('render_login') }}"
-                  >Sign out</a
+                <a class="navBar nav-link" href="{{ url_for('logout') }}"
+                  >Logout</a
                 >
               </li>
+              {% else %}
+              <li class="nav-item">
+                <a
+                  class="nav-link navBar {% if active_page == 'sign_up' %}active{% endif %}"
+                  href="{{ url_for('render_register') }}"
+                  >Sign up</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link navBar {% if active_page == 'login' %}active{% endif %}"
+                  aria-current="page"
+                  href="{{ url_for('render_login') }}"
+                  >Log in</a
+                >
+              </li>
+              {% endif %}
             </ul>
           </div>
         </div>
