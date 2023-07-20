@@ -7,6 +7,14 @@ const bookCardText = document.querySelectorAll(".bookCardText");
 const tiles = document.querySelectorAll(".projects--tile");
 const btnRight = document.querySelector(".right--arrow");
 const btnLeft = document.querySelector(".left--arrow");
+const footerLogo = document.querySelector(".footerLogo");
+
+footerLogo.addEventListener("click", function () {
+  document.documentElement.scrollIntoView({
+    top: 0,
+    behavior: "smooth",
+  });
+});
 
 gsap.from(".pageTitle", { opacity: 0, duration: 1.3, y: -30, ease: "slow" });
 
@@ -30,10 +38,8 @@ const translateRight = function () {
 
 btnRight.addEventListener("click", function () {
   translateLeft();
-  console.log("CLicked");
 });
 
 btnLeft.addEventListener("click", function () {
   translateRight();
-  console.log("CLicked");
 });

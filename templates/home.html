@@ -1,6 +1,9 @@
 {% extends "base.html" %} {% block javascript %} {% endblock %} {% block title
 %} Home | Book Shelf {% endblock %} {% block navbar %} {{ super() }} {% endblock
-%} {% block pagetitle %} Book Of The Month {% endblock %} {% block content %}
+%} {% for message in get_flashed_messages() %}
+<div class="alert alert-danger text-center" role="alert">{{ message }}</div>
+{% endfor %}{% block pagetitle %} Book Of The Month {% endblock %} {% block
+content %}
 <div class="container d-flex justify-content-center mb-3">
   <div class="row">
     <div class="col col-12">
@@ -103,4 +106,4 @@
     </div>
   </div>
 </div>
-{% endblock %} {% block footer_link %} {{ super() }} {% endblock %}
+{% endblock %}

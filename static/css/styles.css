@@ -42,6 +42,11 @@
   color: black;
 }
 
+.left--arrow:hover,
+.right--arrow:hover {
+  cursor: pointer;
+}
+
 .sliderContainer {
   position: relative;
 }
@@ -109,4 +114,8 @@ body {
 .active {
   color: white !important;
   text-decoration: underline;
+}
+
+.footerLogo:hover {
+  cursor: pointer;
 }

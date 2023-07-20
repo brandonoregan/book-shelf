@@ -160,10 +160,15 @@ def render_home():
 def home():
     '''Sets the active page variable to home, sets the current user to a random identifier then retrieves and adds new review to public reviews lisdictionary then renders home.html template'''
     active_page = 'home'
-    current_user = f'User{random.randint(0,5000)}'
     review = request.form.get('review')
-    public_reviews[current_user] = review
-    return render_template("home.html", public_reviews = public_reviews, active_page=active_page, user=current_user)
+
+    if current_user.is_authenticated:
+        username = current_user.username
+        public_reviews[username] = review
+        return render_template("home.html", public_reviews=public_reviews, active_page=active_page, user=current_user)
+    else:
+        flash("You need to log in to access this page.")
+        return redirect(url_for('render_login'))
     
 
 @app.route('/reviews')
