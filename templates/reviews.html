@@ -98,15 +98,26 @@ Book Reviews {% endblock %} {% block content %}
             name="add_book_form"
           >
             <div
-              class="card bookCard embed-responsive embed-responsive-16by9 h-100 mt-4"
+              class="card bookCard embed-responsive embed-responsive-16by9 h-100 mt-4 pt-3"
               data-bs-toggle="modal"
               data-bs-target="#bookInformationModal{{ loop.index }}"
             >
-              <img
-                src="{% if book['volumeInfo']['imageLinks'] %}{{ book['volumeInfo']['imageLinks']['thumbnail'] }}{% else %}{{ url_for('static', filename='img/no-image-available.jpg') }}{% endif %}"
+              {% if book['volumeInfo']['imageLinks'] %}
+              <div
+                class="image-container"
+                style="background-image: url('{{ book['volumeInfo']['imageLinks']['thumbnail'] }}');"
+              ></div>
+              {% else %}
+              <div
+                class="image-container"
+                style="background-image: url('{{ url_for('static', filename='img/no-image-available.jpg') }}');"
+              ></div>
+              {% endif %}
+              <!-- <img
+                src=""
                 class="card-img-top tileImg"
                 alt="{{ book['volumeInfo']['title'] }}"
-              />
+              /> -->
               <div class="card-body">
                 <h5 class="card-title text-truncate">
                   {{ book['volumeInfo']['title'] }}
@@ -243,7 +254,7 @@ Book Reviews {% endblock %} {% block content %}
           value="{{ book['Title'] }}"
         />
         <div
-          class="card bookCard"
+          class="card bookCard pt-3"
           data-bs-toggle="modal"
           data-bs-target="#exampleModal{{ loop.index }}"
         >
@@ -261,11 +272,22 @@ Book Reviews {% endblock %} {% block content %}
               />
             </svg>
           </button>
-          <img
+          {% if book['Image'] %}
+          <div
+            class="image-container"
+            style="background-image: url('{{ book['Image'] }}');"
+          ></div>
+          {% else %}
+          <div
+            class="image-container"
+            style="background-image: url('{{ url_for('static', filename='img/no-image-available.jpg') }}');"
+          ></div>
+          {% endif %}
+          <!-- <img
             src="{% if book['Image'] %}{{ book['Image'] }}{% else %} {{ url_for( 'static', filename='img/no-image-available.jpg') }}{% endif %}"
             class="card-img-top tileImg"
             alt="..."
-          />
+          /> -->
           <div class="card-body">
             <h5 class="card-title text-truncate">{{ book['Title'] }}</h5>
             <p class="card-text cardText text-truncate">
