@@ -1,7 +1,8 @@
 from flask import Flask, url_for, redirect, render_template, request, flash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-import random
+from datetime import datetime
 import requests
+
 
 API_KEY = "AIzaSyB0QuYUYyUzgXbf6_LraR1wTltf4EAyQXs"
 API_URL = 'https://www.googleapis.com/books/v1/volumes'
@@ -164,7 +165,9 @@ def home():
 
     if current_user.is_authenticated:
         username = current_user.username
-        public_reviews[username] = review
+        formatted_time = datetime.now().strftime("%d/%m/%y %H:%M:%S")
+        key = f"{username} - {formatted_time}"
+        public_reviews[key] = review
         return render_template("home.html", public_reviews=public_reviews, active_page=active_page, user=current_user)
     else:
         flash("You need to log in to access this page.")

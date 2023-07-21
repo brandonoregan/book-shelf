@@ -25,16 +25,16 @@ const handleScreenResize = function () {
   }
 };
 
-handleScreenResize();
-
-window.addEventListener("resize", handleScreenResize);
-
 footerLogo.addEventListener("click", function () {
   document.documentElement.scrollIntoView({
     top: 0,
     behavior: "smooth",
   });
 });
+
+handleScreenResize();
+
+window.addEventListener("resize", handleScreenResize);
 
 gsap.from(".pageTitle", { opacity: 0, duration: 1.3, y: -30, ease: "slow" });
 
