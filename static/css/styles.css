@@ -9,6 +9,10 @@
   --google-font-1: "Courgette", cursive;
 }
 
+.hidden {
+  display: none;
+}
+
 .row-bordered {
   position: relative;
 }
@@ -139,4 +143,10 @@ body {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
+}
+
+@media (min-width: 768px) {
+  .sliderContainer {
+    overflow-x: hidden;
+  }
 }

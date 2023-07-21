@@ -8,6 +8,26 @@ const tiles = document.querySelectorAll(".projects--tile");
 const btnRight = document.querySelector(".right--arrow");
 const btnLeft = document.querySelector(".left--arrow");
 const footerLogo = document.querySelector(".footerLogo");
+const arrowContainer = document.querySelector(".arrowContainer");
+
+const handleScreenResize = function () {
+  const screenWidth = window.innerWidth;
+  if (screenWidth < 786) {
+    arrowContainer.classList.add("hidden");
+    btnLeft.classList.add("hidden");
+    btnRight.classList.add("hidden");
+  }
+
+  if (screenWidth > 786) {
+    arrowContainer.classList.remove("hidden");
+    btnLeft.classList.remove("hidden");
+    btnRight.classList.remove("hidden");
+  }
+};
+
+handleScreenResize();
+
+window.addEventListener("resize", handleScreenResize);
 
 footerLogo.addEventListener("click", function () {
   document.documentElement.scrollIntoView({
