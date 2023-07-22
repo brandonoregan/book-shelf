@@ -55,15 +55,6 @@
   position: relative;
 }
 
-/* .tileCards {
-  max-height: 18rem;
-  width: 300px;
-} */
-
-/* .tileImg {
-  max-height: 18rem;
-} */
-
 .projects--tile {
   transition: transform 0.7s ease;
 }
@@ -74,8 +65,6 @@
   right: 2%;
   font-weight: 500;
   font-size: 1.2rem;
-  /* color: white; */
-  /* background-color: black; */
   background-color: transparent;
   border: none;
 }
@@ -85,12 +74,7 @@
 }
 
 .bookMonth {
-  /* Set a fixed height for the container (you can adjust this value based on your layout) */
   max-width: 90%;
-
-  /* Define the aspect ratio (16:9 in this example) */
-  /* padding-top: 10%; */
-  /* Set the background size and other styles */
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
@@ -101,8 +85,6 @@ body {
 }
 
 .navBar {
-  /* background-color: var(--primary-1);
-  border-bottom: 1px solid #ccc; */
   color: white;
 }
 
@@ -133,13 +115,8 @@ body {
   cursor: pointer;
 }
 
-/* .card {
-  /* width: 300px; */
-
 .image-container {
-  /* Define the aspect ratio (16:9 in this example) */
   padding-top: 100%;
-  /* Set the background size and other styles */
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;

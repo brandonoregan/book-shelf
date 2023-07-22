@@ -32,14 +32,7 @@ class User(UserMixin):
         return str(self.user_id)
 
 
-@login_manager.user_loader
-def load_user(user_id):
-    user_id = int(user_id)
-    for user in users:
-        if user.user_id == user_id:
-            return user
-    return None
-
+# Mini Database code (Example website display key and values)
 
 # Contains default reviews for display purposes
 public_reviews = {
@@ -76,6 +69,15 @@ my_wishlist = [
     },
      ]
 
+# Functions
+
+@login_manager.user_loader
+def load_user(user_id):
+    user_id = int(user_id)
+    for user in users:
+        if user.user_id == user_id:
+            return user
+    return None
 
 def handle_api(search_query):
     '''Use seach query to search Google Books API and return the top 10 books if successful'''
@@ -92,6 +94,8 @@ def handle_api(search_query):
     else:
         return 0, []
 
+
+# Flask route/route functions
 
 @app.route('/')
 def render_register():
