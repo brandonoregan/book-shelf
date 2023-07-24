@@ -38,14 +38,6 @@ footerLogo.addEventListener("click", function () {
   });
 });
 
-sliderSubmitButton.addEventListener("click", function (event) {
-  event.stopPropagation();
-});
-
-removeCardButton.addEventListener("click", function (event) {
-  event.stopPropagation();
-});
-
 handleScreenResize();
 
 window.addEventListener("resize", handleScreenResize);

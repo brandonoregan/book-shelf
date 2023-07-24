@@ -45,7 +45,8 @@
 .right--arrow {
   color: black;
 }
-bookcard .left--arrow:hover,
+
+.left--arrow:hover,
 .right--arrow:hover {
   cursor: pointer;
 }
