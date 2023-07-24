@@ -251,7 +251,7 @@ def reviews():
             "Thoughts": "",
             "Image": book_thumbnail,
         }
-        my_books.append(new_book)
+        my_books.insert(0, new_book)
         return render_template(
             "reviews.html",
             my_books=my_books,
@@ -330,7 +330,7 @@ def wish_list():
             "Image": book_thumbnail,
             "Description": book_description,
         }
-        my_wishlist.append(new_book)
+        my_wishlist.insert(0, new_book)
         return render_template(
             "wish_list.html",
             my_wishlist=my_wishlist,
