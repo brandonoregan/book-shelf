@@ -106,12 +106,14 @@ def handle_api(search_query):
 
 # Flask route/route functions
 
+
 @app.route("/")
 def render_index():
     """Renders associated template"""
-    active_page = 'sign_up'
+    active_page = "sign_up"
 
     return render_template("index.html", active_page=active_page, user=current_user)
+
 
 @app.route("/sign_up")
 def render_register():

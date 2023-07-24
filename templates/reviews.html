@@ -88,8 +88,6 @@
     <div class="container mb-5 sliderContainer">
       <div class="row d-flex flex-md-nowrap justify-content-start">
         <!-- Loop for API Search Query Results -->
-        <!-- Loop for API Search Query Results -->
-        <!-- Loop for API Search Query Results -->
         {% for book in book_limit %}
         <div class="projects--tile col-12 col-sm-6 col-md-3 h-100">
           <form
@@ -111,11 +109,6 @@
                 style="background-image: url('{{ url_for('static', filename='img/no-image-available.jpg') }}');"
               ></div>
               {% endif %}
-              <!-- <img
-                src=""
-                class="card-img-top tileImg"
-                alt="{{ book['volumeInfo']['title'] }}"
-              /> -->
               <div class="card-body">
                 <h5 class="card-title text-truncate">
                   {{ book['volumeInfo']['title'] }}
@@ -245,8 +238,6 @@
   <div
     class="row container-fluid d-flex justify-content-center justify-content-md-start mb-4"
   >
-    <!-- Loop for personal books-->
-    <!-- Loop for personal books-->
     <!-- Loop for personal books-->
     {% for book in my_books %}
     <div class="col-12 col-sm-6 col-md-3">
