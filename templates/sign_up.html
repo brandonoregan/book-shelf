@@ -1,13 +1,21 @@
 {% extends "base.html" %} {% block javascript %} {% endblock %} {% block title
-%} Log in | Book Shelf {% endblock %} {% block navbar %} {{ super() }} {% for
+%} Sign Up {% endblock %} {% block navbar %} {{ super() }} {% endblock %} {% for
 message in get_flashed_messages() %}
 <div class="alert alert-danger text-center" role="alert">{{ message }}</div>
-{% endfor %} {% endblock %} {% block header %} {{ super() }}{% endblock %} {%
-block content %}
-<div class="container mt-3 mt-md-5 pt-5">
+{% endfor %} {% block header %}{{ super() }} {% endblock %} {% block content %}
+<div class="container d-flex justify-content-center mb-3">
+  <div class="row">
+    <div class="col col-12">
+      <h5 class="text-center text-body-emphasis subTitle">
+        Join in, read along, have fun!
+      </h5>
+    </div>
+  </div>
+</div>
+<div class="container mt-md-5 pt-5 mb-5">
   <div class="row">
     <div class="col-12 col-sm-8 col-md-6 m-auto">
-      <div class="card border-0 shadow mb-5">
+      <div class="card border-0 shadow">
         <div class="card-body">
           <div class="d-flex justify-content-center">
             <svg
@@ -25,7 +33,7 @@ block content %}
               />
             </svg>
           </div>
-          <form action="{{url_for('login')}}" method="POST">
+          <form action="{{ url_for('add_user') }}" method="POST">
             <input
               required
               type="text"
@@ -36,16 +44,16 @@ block content %}
             />
             <input
               required
-              type="password"
+              type="text"
               name="password"
               id="password"
               class="form-control my-4 py-2"
               placeholder="Password"
             />
             <div class="text-center mt-3">
-              <button class="btn btn-secondary">Login</button>
-              <a href="{{ url_for('render_register')}}" class="nav-link"
-                >Don't have an account ?</a
+              <button class="btn btn-secondary">Sign up</button>
+              <a href="{{ url_for('login') }}" class="nav-link"
+                >Already have an account ?</a
               >
             </div>
           </form>

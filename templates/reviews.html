@@ -4,8 +4,8 @@
 <!-- JINJA BREAK -->
 {% block title %} Reviews | Book Shelf {% endblock %}
 <!-- JINJA BREAK -->
-{% block navbar %} {{ super() }} {% endblock %} {% block pagetitle %} Personal
-Book Reviews {% endblock %} {% block content %}
+{% block navbar %} {{ super() }} {% endblock %} {% block header %} {{ super() }}
+{% endblock %}{% block content %}
 <div class="container d-flex justify-content-center mb-3">
   <div class="row">
     <div class="col col-12">
@@ -62,12 +62,12 @@ Book Reviews {% endblock %} {% block content %}
     </div>
   </div>
 </div>
-<div class="row">
+<div class="row sliderRow">
   <div
     class="col col-1 arrowContainer d-flex justify-content-end align-items-center"
   >
     {% if slider_showing %}
-    <a class="left--arrow w-25">
+    <a class="left--arrow p-0">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="40"

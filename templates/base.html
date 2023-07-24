@@ -109,13 +109,18 @@
       </nav>
       {% endblock %}
       <div class="main-content">
+        {% block header %}
         <h1
           id="pageTitle"
           class="pageTitle text-center row-bordered mb-4 mt-3 p-2 display-2"
         >
-          {% block pagetitle %} {% endblock %}
+          {% if active_page == 'home' %}Book Of The Month{% elif active_page ==
+          'reviews' %}Personal Book Reviews {% elif active_page == 'login'
+          %}Welcome Back!{% elif active_page == 'sign_up' %}Welcome to Book
+          Shelf{% elif active_page == 'wish_list' %}Wish List{% else %}{% endif
+          %}
         </h1>
-        {% block content %} {% endblock %}
+        {% endblock %} {% block content %} {% endblock %}
       </div>
     </div>
     <footer class="bg-dark py-2 mt-auto">
