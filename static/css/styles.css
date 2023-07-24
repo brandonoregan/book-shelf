@@ -45,8 +45,7 @@
 .right--arrow {
   color: black;
 }
-
-.left--arrow:hover,
+bookcard .left--arrow:hover,
 .right--arrow:hover {
   cursor: pointer;
 }
@@ -116,6 +115,10 @@ body {
   cursor: pointer;
 }
 
+.editModal {
+  cursor: pointer;
+}
+
 .image-container {
   padding-top: 100%;
   background-size: contain;
@@ -168,6 +171,7 @@ body {
   border: none;
   z-index: 999;
 }
+
 .infoButtonSearch {
   position: absolute;
   bottom: 2%;
@@ -179,6 +183,11 @@ body {
   border: 1px solid black !important;
   border: none;
   z-index: 999;
+}
+
+.infoButtonSearch:hover {
+  background-color: black;
+  color: white;
 }
 
 @media (min-width: 768px) {
