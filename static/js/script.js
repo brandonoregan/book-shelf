@@ -9,6 +9,8 @@ const btnRight = document.querySelector(".right--arrow");
 const btnLeft = document.querySelector(".left--arrow");
 const footerLogo = document.querySelector(".footerLogo");
 const arrowContainer = document.querySelector(".arrowContainer");
+const sliderSubmitButton = document.getElementById("submitButton");
+const removeCardButton = document.getElementById("removeCardButton");
 
 const handleScreenResize = function () {
   const screenWidth = window.innerWidth;
@@ -25,6 +27,8 @@ const handleScreenResize = function () {
   }
 };
 
+gsap.from(".pageTitle", { opacity: 0, duration: 1.3, y: -30, ease: "slow" });
+
 footerLogo.addEventListener("click", function () {
   document.documentElement.scrollIntoView({
     top: 0,
@@ -32,11 +36,17 @@ footerLogo.addEventListener("click", function () {
   });
 });
 
+sliderSubmitButton.addEventListener("click", function (event) {
+  event.stopPropagation();
+});
+
+removeCardButton.addEventListener("click", function (event) {
+  event.stopPropagation();
+});
+
 handleScreenResize();
 
 window.addEventListener("resize", handleScreenResize);
-
-gsap.from(".pageTitle", { opacity: 0, duration: 1.3, y: -30, ease: "slow" });
 
 let currentTile = 0;
 const maxTile = 4;

@@ -144,6 +144,7 @@
                 href="{{ url_for('reviews') }}"
                 type="submit"
                 class="ms-auto mb-2 me-2 border-0 bg-light"
+                id="sliderSubmitButton"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -262,7 +263,7 @@
           data-bs-toggle="modal"
           data-bs-target="#exampleModal{{ loop.index }}"
         >
-          <button type="submit" class="removeCardButton">
+          <button type="submit" class="removeCardButton" id="removeCardButton">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="30"
