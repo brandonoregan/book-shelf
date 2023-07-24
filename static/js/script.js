@@ -12,6 +12,7 @@ const arrowContainer = document.querySelector(".arrowContainer");
 const sliderSubmitButton = document.getElementById("submitButton");
 const removeCardButton = document.getElementById("removeCardButton");
 
+// This function will display or hide the associated classes depending on associated screen size.
 const handleScreenResize = function () {
   const screenWidth = window.innerWidth;
   if (screenWidth < 786) {
@@ -27,6 +28,7 @@ const handleScreenResize = function () {
   }
 };
 
+// adds animated affect to associated class
 gsap.from(".pageTitle", { opacity: 0, duration: 1.3, y: -30, ease: "slow" });
 
 footerLogo.addEventListener("click", function () {
@@ -51,6 +53,7 @@ window.addEventListener("resize", handleScreenResize);
 let currentTile = 0;
 const maxTile = 4;
 
+// Adjust associated classes x position to the left
 const translateLeft = function () {
   currentTile = (currentTile + 1) % maxTile;
   tiles.forEach((tile) => {
@@ -58,6 +61,7 @@ const translateLeft = function () {
   });
 };
 
+// Adjust associated classes x position to the right
 const translateRight = function () {
   currentTile = (currentTile - 1 + maxTile) % maxTile;
   const translation = `-${currentTile * 100}%`;

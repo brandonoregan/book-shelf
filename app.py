@@ -89,7 +89,7 @@ def load_user(user_id):
 
 
 def handle_api(search_query):
-    """Use seach query to search Google Books API and return the top 10 books if successful"""
+    """Handle search query API respone"""
     api_url = API_URL
     params = {"q": f"intitle:{search_query}", "key": API_KEY}
     response = requests.get(api_url, params=params)
@@ -108,14 +108,14 @@ def handle_api(search_query):
 
 @app.route("/")
 def render_index():
-    """Will render asociated template"""
+    """Renders associated template"""
     active_page = 'sign_up'
 
     return render_template("index.html", active_page=active_page, user=current_user)
 
 @app.route("/sign_up")
 def render_register():
-    """Render registraton page"""
+    """Renders associated template"""
     active_page = "sign_up"
 
     return render_template("sign_up.html", active_page=active_page, user=current_user)
@@ -123,7 +123,7 @@ def render_register():
 
 @app.route("/sign_up", methods=["POST"])
 def add_user():
-    """Create a user and add user to the local database and render the login page."""
+    """Creates and stores new user"""
     username = request.form.get("username")
     password = request.form.get("password")
     user_id = len(users)
@@ -135,16 +135,14 @@ def add_user():
 
 @app.route("/login")
 def render_login():
+    """Renders associated template"""
     active_page = "login"
-    """This function will render login.html template"""
     return render_template("login.html", active_page=active_page, user=current_user)
 
 
 @app.route("/login", methods=["POST"])
 def login():
-    """Retirieves login information and checks for correct username and passowrd.
-    Redirected to the home page if login successful or error message occurs if unsuccessful.
-    """
+    """Handles user authentication"""
     username = request.form.get("username")
     password = request.form.get("password")
     user = None
@@ -167,6 +165,7 @@ def login():
 @app.route("/logout")
 @login_required
 def logout():
+    """Renders associated template"""
     logout_user()
     return redirect(url_for("render_login"))
 
@@ -174,7 +173,8 @@ def logout():
 @app.route("/home")
 @login_required
 def render_home():
-    """Sets the active page variable to home and renders the home.html template"""
+    """Renders associated template"""
+
     active_page = "home"
 
     return render_template(
@@ -187,7 +187,7 @@ def render_home():
 
 @app.route("/home", methods=["POST"])
 def home():
-    """Sets the active page variable to home, sets the current user to a random identifier then retrieves and adds new review to public reviews lisdictionary then renders home.html template"""
+    """Handles review creation and storage"""
     active_page = "home"
     review = request.form.get("review")
 
@@ -209,7 +209,7 @@ def home():
 
 @app.route("/reviews")
 def render_reviews():
-    """Render the reviews.html template and display API results if a query has been entered"""
+    """Handles display of approriate API results"""
     active_page = "reviews"
     slider_showing = False
     search_query = request.args.get("query")
@@ -288,6 +288,8 @@ def reviews():
 
 @app.route("/wish_list")
 def render_wish_list():
+    """Handles display of approriate API results"""
+
     active_page = "wish_list"
     search_query = request.args.get("query")
     slider_showing = False
@@ -316,6 +318,7 @@ def render_wish_list():
 
 @app.route("/wish_list", methods=["POST"])
 def wish_list():
+    """Handle each post request of the wish_list function"""
     active_page = "wish_list"
 
     if request.args.get("f") == "f1":
