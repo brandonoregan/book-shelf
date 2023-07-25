@@ -117,7 +117,7 @@ super() }}
                   {{ book['volumeInfo']['title'] }}
                   <!-- Display the title gather from the chosen API result-->
                 </h5>
-                <p class="card-text cardText text-truncate">
+                <p class="card-text text-truncate">
                   {% if book['volumeInfo']['subtitle'] %}{{
                   book['volumeInfo']['subtitle'] }}{% else %}No subtitle
                   available.{% endif %}
@@ -263,20 +263,6 @@ super() }}
           value="{{ book['Title'] }}"
         />
         <div class="card pt-3">
-          <button type="submit" class="removeCardButton" id="removeCardButton">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="30"
-              height="30"
-              fill="light-grey"
-              class="bi bi-x-square-fill"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z"
-              />
-            </svg>
-          </button>
           {% if book['Image'] %}
           <!-- This if statement checks for an image in the entry of my_books and displays it if true, if not a default image is displayed -->
           <div
@@ -291,12 +277,19 @@ super() }}
           {% endif %}
           <div class="card-body">
             <h5 class="card-title text-truncate">{{ book['Title'] }}</h5>
+            <!-- Dsiplays the the value of the thought key for the book in my_books if present if not displays some default text-->
             <p class="card-text cardText text-truncate">
-              <!-- Dsiplays the the value of the thought key ifor the book in my_books if present if not displays some default text-->
               {% if book['Thoughts'] %}{{ book['Thoughts'] }}{% else %}Add some
               thoughts...{% endif %}
             </p>
           </div>
+          <button
+            type="submit"
+            class="btn btn-secondary me-auto removeCardButton"
+            id="removeCardButton"
+          >
+            Remove Book
+          </button>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -337,9 +330,9 @@ super() }}
           >
             <div class="modal-content">
               <div class="modal-header">
+                <!--Displays the title of the index entry in my books list-->
                 <h1 class="modal-title fs-5" id="exampleModalLabel">
                   {{ book['Title'] }}
-                  <!--Displays the title of the index entry in my books list-->
                 </h1>
                 <button
                   type="button"
@@ -349,6 +342,7 @@ super() }}
                 ></button>
               </div>
               <div class="modal-body text-truncate container-fluid">
+                <!-- Displays book index 'thoughts' value if present if not default text is displayed -->
                 <textarea
                   name="new_thoughts"
                   id="newThoughts"
@@ -357,7 +351,7 @@ super() }}
                   placeholder="Three things I don't want to forget:"
                   class="container-fluid"
                 >
-{% if book['Thoughts'] %}{{ book['Thoughts'] }}{% else %}Add some thoughts...{% endif %}<!-- Displays book index 'thoughts' value if present if not default text is displayed -->
+{% if book['Thoughts'] %}{{ book['Thoughts'] }}{% else %}Add some thoughts...{% endif %}
               </textarea
                 >
               </div>
