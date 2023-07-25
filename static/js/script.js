@@ -1,9 +1,7 @@
 "use strict";
 
+// Varibale selectors for elements in HTML
 const pageTitle = document.querySelector(".pageTitle");
-const bookCards = document.querySelectorAll(".bookCard");
-const bookCardTitle = document.querySelectorAll(".bookCardTitle");
-const bookCardText = document.querySelectorAll(".bookCardText");
 const tiles = document.querySelectorAll(".projects--tile");
 const btnRight = document.querySelector(".right--arrow");
 const btnLeft = document.querySelector(".left--arrow");
@@ -28,9 +26,10 @@ const handleScreenResize = function () {
   }
 };
 
-// adds animated affect to associated class
+// adds animated effect to associated class
 gsap.from(".pageTitle", { opacity: 0, duration: 1.3, y: -30, ease: "slow" });
 
+// Creates a smooth scrolling effect the top of the page when the logo in the footer in clicked
 footerLogo.addEventListener("click", function () {
   document.documentElement.scrollIntoView({
     top: 0,
@@ -40,6 +39,7 @@ footerLogo.addEventListener("click", function () {
 
 handleScreenResize();
 
+// When the window screen size is adjusted the handleScreenResize function is called
 window.addEventListener("resize", handleScreenResize);
 
 let currentTile = 0;
@@ -62,10 +62,12 @@ const translateRight = function () {
   });
 };
 
+// Calls the translateLeft function when the left arrow of the slider is clicked
 btnRight.addEventListener("click", function () {
   translateLeft();
 });
 
+// Calls the translateRight function when the right arrow of the slider is clicked
 btnLeft.addEventListener("click", function () {
   translateRight();
 });
