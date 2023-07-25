@@ -10,8 +10,9 @@ from flask_login import (
 from datetime import datetime
 import requests
 
-
+# This is key used for using the GOOGLE API
 API_KEY = "AIzaSyB0QuYUYyUzgXbf6_LraR1wTltf4EAyQXs"
+
 API_URL = "https://www.googleapis.com/books/v1/volumes"
 
 app = Flask(__name__)
@@ -77,7 +78,6 @@ my_wishlist = [
 ]
 
 # Functions
-
 
 @login_manager.user_loader
 def load_user(user_id):

@@ -1,4 +1,5 @@
 :root {
+  /* These are the custom color variables used */
   --primary-1: #faf0e6;
   --primary-1-darker: hsl(34, 56%, 91%);
   --primary-2: #fff0db;
@@ -6,13 +7,39 @@
   --primary-4: #e4d5b7;
   --primary-5: #d9b99b;
 
+  /* Custom fonts used */
   --google-font-1: "Courgette", cursive;
 }
 
+/* Changes the background colour of the page content body to a light beige */
+body {
+  background-color: var(--primary-1);
+}
+
+/* Hides the element where this class is present */
 .hidden {
   display: none;
 }
 
+/* Styles and positions the img tile containing the book of the month*/
+.bookMonth {
+  max-width: 90%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+/* Changes the cursor pointer to a hand when hovering over the Logo in the Footer */
+.footerLogo:hover {
+  cursor: pointer;
+}
+
+.projects--tile {
+  transition: transform 0.7s ease; /* Creates the effect of smoothscrolling when slider arrows are clicked */
+}
+
+/* These classes are used to create an underline */
+/* These classes are used to create an underline */
 .row-bordered {
   position: relative;
 }
@@ -41,85 +68,58 @@
   right: 3px;
 }
 
+/* Classes to style the arrows used in the API slider */
+/* Classes to style the arrows used in the API slider */
+
 .left--arrow,
 .right--arrow {
-  color: black;
+  color: black; /* Changes the arrow color  to black */
 }
 
 .left--arrow:hover,
 .right--arrow:hover {
-  cursor: pointer;
+  cursor: pointer; /* Changes the cursor to a finger when the mouse hovers over it */
+}
+
+.arrowContainer {
+  padding: 0; /* removed the padding on the container holding the arrows in slider */
+}
+
+.sliderRow {
+  width: 100%; /* Ensure the slider row container occupies the full with of the row  */
+  overflow: hidden; /* Hides the overflowing results of the API search */
 }
 
 .sliderContainer {
-  position: relative;
+  position: relative; /* Allows the elemnts inside the cards in my books/my wish list with position absolute to have a reference point */
 }
 
-.projects--tile {
-  transition: transform 0.7s ease;
-}
+/* Styles for the cards in reviews and wishlist pages */
+/* Styles for the cards in reviews and wishlist pages */
 
+/* Style for the button that is on the card displayed in Reviews/My Books */
 .removeCardButton {
   position: absolute;
   top: 2%;
   right: 2%;
   font-weight: 500;
-  font-size: 1.2rem;
+  font-size: 1.2rem; /* 1rem = 16px */
   background-color: transparent;
   border: none;
   z-index: 999;
 }
 
+/* Changes the cursor to a pointer on cards in search reults and my books. */
 .bookCard {
   cursor: pointer;
 }
 
-.bookMonth {
-  max-width: 90%;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center center;
-}
-
-body {
-  background-color: var(--primary-1);
-}
-
-.navBar {
-  color: white;
-}
-
-.navBar:hover {
-  color: white !important;
-}
-
-.personalBooks {
-  border: 1.5px solid black;
-}
-
-.subTitle {
-  font-family: var(--google-font-1);
-  font-size: 2.5rem;
-}
-
-.subTitleSm {
-  font-family: var(--google-font-1);
-  font-size: 1.5rem;
-}
-
-.active {
-  color: white !important;
-  text-decoration: underline;
-}
-
-.footerLogo:hover {
-  cursor: pointer;
-}
-
+/* Changes the cursor pointer to a hand when hovering over the the pen icon located on the books cards */
 .editModal {
   cursor: pointer;
 }
 
+/* Ensures images are rendered as best possible  */
 .image-container {
   padding-top: 100%;
   background-size: contain;
@@ -127,70 +127,102 @@ body {
   background-position: center center;
 }
 
-.arrowContainer {
-  padding: 0;
+/* Styles the more info button in the cards in reviews and wish list pages */
+.infoButton {
+  position: absolute;
+  bottom: 1%;
+  left: 5%;
+  font-weight: 500;
+  font-size: 0.7rem; /* 1rem = 16px */
+  background-color: white;
+  color: black;
+  border: 1px solid black !important;
+  border: none;
+  z-index: 999;
 }
 
-.sliderRow {
-  width: 100%;
-  overflow: hidden;
+/* Styles the more info button in the cards displayed when searching the API in reviews and wish list pages */
+.infoButtonSearch {
+  position: absolute;
+  bottom: 2%;
+  left: 5%;
+  font-weight: 500;
+  font-size: 1rem; /* 1rem = 16px */
+  background-color: white;
+  color: black;
+  border: 1px solid black !important;
+  border: none;
+  z-index: 999;
 }
 
+/* Changes the background and text color to create contrast when hovering over button in cards displayed when seaching the API  */
+.infoButtonSearch:hover {
+  background-color: black;
+  color: white;
+}
+
+/* Nav bar styling */
+/* Nav bar styling */
+
+.navBar {
+  color: white; /* Changes the text on the navigation bar tabs to white */
+}
+
+.navBar:hover {
+  color: white !important; /* Keep the nav tab text white when hovered over */
+}
+
+/* Gives the nav tabs an underline when classes is present */
+.active {
+  color: white !important;
+  text-decoration: underline;
+}
+
+/* Styles the small subtitle under each page title  */
+/* Styles the small subtitle under each page title  */
+
+.subTitle {
+  font-family: var(
+    --google-font-1
+  ); /* changes the small subtitle under each page title to the custom google font */
+  font-size: 2.5rem;
+}
+
+.subTitleSm {
+  font-family: var(--google-font-1);
+  font-size: 1.5rem; /* 1rem = 16px */
+}
+
+/* Styles for index.html page */
+/* Styles for index.html page */
+
+/* Styles login and sign up buttons in the index.html page */
 .indexButtons {
   background-color: var(--primary-2);
   border: 2px solid black;
   color: black;
-  height: 8rem;
+  height: 8rem; /* 1rem = 16px */
   width: 18rem;
   margin: 1rem;
   font-weight: 500;
   font-size: 3rem;
 }
 
+/* Changes the color state of the login and sign up buttons in the index.html page */
 .indexButtons:hover {
   background-color: var(--primary-2);
   color: var(--primary-5);
 }
 
-.pageContainer {
-  background-color: aqua;
-}
-
+/* Moves the content in the center of the index.html page lower down */
 .indexContainer {
-  margin-top: 4rem !important;
+  margin-top: 4rem !important; /* 1rem = 16px */
 }
 
-.infoButton {
-  position: absolute;
-  bottom: 1%;
-  left: 5%;
-  font-weight: 500;
-  font-size: 0.7rem;
-  background-color: white;
-  color: black;
-  border: 1px solid black !important;
-  border: none;
-  z-index: 999;
-}
+/* Media Queries  */
+/* Media Queries  */
 
-.infoButtonSearch {
-  position: absolute;
-  bottom: 2%;
-  left: 5%;
-  font-weight: 500;
-  font-size: 1rem;
-  background-color: white;
-  color: black;
-  border: 1px solid black !important;
-  border: none;
-  z-index: 999;
-}
-
-.infoButtonSearch:hover {
-  background-color: black;
-  color: white;
-}
-
+/* Hides the overflowing content dispayed in the API search results container when screen size is above 768px */
 @media (min-width: 768px) {
   .sliderContainer {
     overflow-x: hidden;
