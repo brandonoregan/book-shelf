@@ -1,11 +1,9 @@
-{% extends "base.html" %}
-<!-- JINJA BREAK -->
-{% block javascript %} {% endblock %}
-<!-- JINJA BREAK -->
-{% block title %} Reviews | Book Shelf {% endblock %}
-<!-- JINJA BREAK -->
-{% block navbar %} {{ super() }} {% endblock %} {% block header %} {{ super() }}
-{% endblock %}{% block content %}
+{% extends "base.html" %}<!--Uses the base.html as a template -->
+{% block title %} Reviews | Book Shelf {% endblock %} {% block navbar %} {{
+super() }}
+<!--This super function will inherit all the code within the block navbar in the base.html-->
+{% endblock %} {% block header %} {{ super() }} {% endblock %}{% block content
+%}
 <div class="container d-flex justify-content-center mb-3">
   <div class="row">
     <div class="col col-12">
@@ -22,6 +20,7 @@
   <div class="row">
     <div class="col-12">
       <div class="input-group rounded">
+        <!-- This form is associated with the search bar and activates the render_reviews functino located in the app.py when a search query is submitted -->
         <form
           method="GET"
           action="{{url_for('render_reviews')}}"
@@ -67,6 +66,7 @@
     class="col col-1 arrowContainer d-flex justify-content-end align-items-center"
   >
     {% if slider_showing %}
+    <!--This if statement will display the slider arrow icons only if a search query has been made and some API results are displayed-->
     <a class="left--arrow p-0">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -89,7 +89,9 @@
       <div class="row d-flex flex-md-nowrap justify-content-start">
         <!-- Loop for API Search Query Results -->
         {% for book in book_limit %}
+        <!--This loop will display each result of the API search query made and display them as cards -->
         <div class="projects--tile col-12 col-sm-6 col-md-3 h-100">
+          <!-- This form will  call the reviews function in app.py with the query parameter 'f1' when the plus icon(submit button) is clicked -->
           <form
             action="{{url_for('reviews', f='f1')}}"
             method="POST"
@@ -99,6 +101,7 @@
               class="card embed-responsive embed-responsive-16by9 h-100 mt-4 pt-3"
             >
               {% if book['volumeInfo']['imageLinks'] %}
+              <!-- This if statement checks if a thumbnail is avaiable from the API. It is displayed if present if not, a standard local thumbnail is rendered instead -->
               <div
                 class="image-container"
                 style="background-image: url('{{ book['volumeInfo']['imageLinks']['thumbnail'] }}');"
@@ -112,19 +115,22 @@
               <div class="card-body">
                 <h5 class="card-title text-truncate">
                   {{ book['volumeInfo']['title'] }}
+                  <!-- Display the title gather from the chosen API result-->
                 </h5>
                 <p class="card-text cardText text-truncate">
                   {% if book['volumeInfo']['subtitle'] %}{{
                   book['volumeInfo']['subtitle'] }}{% else %}No subtitle
                   available.{% endif %}
+                  <!--Displays the subtitle from the chosen API result if available if not a default message is displayed-->
                 </p>
               </div>
-              <!-- Hidden Inputs img-src & book title -->
+              <!-- This hidden input is used to extract the chosen API result thumbnail if avaible to app.py to be used as a variable -->
               <input
                 type="hidden"
                 name="bookThumbnail"
                 value="{% if book['volumeInfo']['imageLinks'] %}{{ book['volumeInfo']['imageLinks']['thumbnail'] }}{% endif %}"
               />
+              <!-- This hidden input is used to extract the chosen API result book title if avaible to app.py to be used as a variable -->
               <input
                 type="hidden"
                 name="bookTitle"
@@ -183,6 +189,7 @@
                 ></button>
               </div>
               <div class="modal-body">
+                <!-- This if statement is used to display the subtitle and description in the modal window if they are available -->
                 {% if book['volumeInfo']['subtitle'] %} {{
                 book['volumeInfo']['subtitle'] }} <br /><br />
                 {{ book['volumeInfo']['description'] }} {% else %} {{
@@ -208,6 +215,7 @@
     class="col col-1 arrowContainer d-flex justify-content-flex-start align-items-center"
   >
     {% if slider_showing %}
+    <!--This if statement will display the slider arrow icons only if a search query has been made and some API results are displayed-->
     <a class="right--arrow w-25">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -238,8 +246,8 @@
   <div
     class="row container-fluid d-flex justify-content-center justify-content-md-start mb-4"
   >
-    <!-- Loop for personal books-->
     {% for book in my_books %}
+    <!-- This loop will display and format each index of the my book list in a card template -->
     <div class="col-12 col-sm-6 col-md-3">
       <form
         action="{{ url_for('reviews', f='f2') }}"
@@ -247,6 +255,7 @@
         name="remove_card_button"
         class="mb-4 mt-4"
       >
+        <!-- This hidden input is used to extract the value of the book title and return it to the app.py file -->
         <input
           type="hidden"
           name="bookTitleRemove"
@@ -269,6 +278,7 @@
             </svg>
           </button>
           {% if book['Image'] %}
+          <!-- This if statement checks for an image in the entry of my_books and displays it if true, if not a default image is displayed -->
           <div
             class="image-container"
             style="background-image: url('{{ book['Image'] }}');"
@@ -282,6 +292,7 @@
           <div class="card-body">
             <h5 class="card-title text-truncate">{{ book['Title'] }}</h5>
             <p class="card-text cardText text-truncate">
+              <!-- Dsiplays the the value of the thought key ifor the book in my_books if present if not displays some default text-->
               {% if book['Thoughts'] %}{{ book['Thoughts'] }}{% else %}Add some
               thoughts...{% endif %}
             </p>
@@ -328,6 +339,7 @@
               <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">
                   {{ book['Title'] }}
+                  <!--Displays the title of the index entry in my books list-->
                 </h1>
                 <button
                   type="button"
@@ -345,7 +357,7 @@
                   placeholder="Three things I don't want to forget:"
                   class="container-fluid"
                 >
-{% if book['Thoughts'] %}{{ book['Thoughts'] }}{% else %}Add some thoughts...{% endif %}
+{% if book['Thoughts'] %}{{ book['Thoughts'] }}{% else %}Add some thoughts...{% endif %}<!-- Displays book index 'thoughts' value if present if not default text is displayed -->
               </textarea
                 >
               </div>

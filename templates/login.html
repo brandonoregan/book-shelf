@@ -1,9 +1,13 @@
-{% extends "base.html" %} {% block javascript %} {% endblock %} {% block title
-%} Log in | Book Shelf {% endblock %} {% block navbar %} {{ super() }} {% for
-message in get_flashed_messages() %}
+{% extends "base.html" %}<!--Uses the base.html as a template -->
+{% block title %} Log in | Book Shelf {% endblock %} {% block navbar %} {{
+super() }}
+<!--This super function will inherit all the code within the block navbar in the base.html-->
+{% for message in get_flashed_messages() %}
+<!-- This loop will render the messages provided by the flash extension just below the navbar-->
 <div class="alert alert-danger text-center" role="alert">{{ message }}</div>
-{% endfor %} {% endblock %} {% block header %} {{ super() }}{% endblock %} {%
-block content %}
+{% endfor %} {% endblock %} {% block header %} {{ super() }}
+<!--This super function will inherit all the code within the block header from the base.html-->
+{% endblock %} {% block content %}
 <div class="container mt-3 mt-md-5 pt-5">
   <div class="row">
     <div class="col-12 col-sm-8 col-md-6 m-auto">
@@ -25,6 +29,7 @@ block content %}
               />
             </svg>
           </div>
+          <!-- This form activated by the login button will activate the login function in the app.py file -->
           <form action="{{url_for('login')}}" method="POST">
             <input
               required
@@ -44,6 +49,7 @@ block content %}
             />
             <div class="text-center mt-3">
               <button class="btn btn-secondary">Login</button>
+              <!-- This anchor tag will call the render register function located in the app.py when clicked -->
               <a href="{{ url_for('render_register')}}" class="nav-link"
                 >Don't have an account ?</a
               >

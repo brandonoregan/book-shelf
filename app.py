@@ -79,6 +79,7 @@ my_wishlist = [
 
 # Functions
 
+
 @login_manager.user_loader
 def load_user(user_id):
     user_id = int(user_id)

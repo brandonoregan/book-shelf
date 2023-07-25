@@ -1,8 +1,13 @@
-{% extends "base.html" %} {% block javascript %} {% endblock %} {% block title
-%} Home | Book Shelf {% endblock %} {% block navbar %} {{ super() }} {% endblock
-%} {% for message in get_flashed_messages() %}
+{% extends "base.html" %}<!--Uses the base.html as a template -->
+{% block title %} Home | Book Shelf {% endblock %} {% block navbar %} {{ super()
+}}
+<!--This super function will inherit all the code within the block navbar in the base.html-->
+{% endblock %} {% for message in get_flashed_messages() %}
+<!-- This loop will render the messages just provided by the flash extension just below the navbar-->
 <div class="alert alert-danger text-center" role="alert">{{ message }}</div>
-{% endfor %}{% block header %} {{ super() }} {% endblock %}{% block content %}
+{% endfor %}{% block header %} {{ super() }}
+<!--This super function will inherit all the code within the block header from the base.html-->
+{% endblock %}{% block content %}
 <div class="container d-flex justify-content-center mb-3">
   <div class="row">
     <div class="col col-12">
@@ -15,6 +20,7 @@
 <div class="container mx-auto d-flex justify-content-center">
   <div class="row d-flex justify-content-center">
     <div class="d-flex justify-content-center mb-3">
+      <!-- Renders the atomic habits book image -->
       <img
         class="bookMonth mx-auto shadow"
         src="{{ url_for('static', filename='img/atomic-habits.jpg') }}"
@@ -70,6 +76,7 @@
                 <h5 class="card-title row-bordered-full ps-3">
                   Leave a review.
                 </h5>
+                <!-- This form activated by the submit button will activate the home function in the app.py file -->
                 <form action="{{ url_for('home') }}" method="POST">
                   <div class="input-group">
                     <input
@@ -90,6 +97,7 @@
               </div>
             </div>
           </li>
+          <!-- This loop will create and display each review in the public reviews dictionary in app.py -->
           {% for key, value in public_reviews.items() %}
           <li>
             <div class="card mt-4 shadow">

@@ -1,8 +1,12 @@
-{% extends "base.html" %} {% block javascript %} {% endblock %} {% block title
-%} Sign Up {% endblock %} {% block navbar %} {{ super() }} {% endblock %} {% for
-message in get_flashed_messages() %}
+{% extends "base.html" %}<!--Uses the base.html as a template -->
+{% block title %} Sign Up | Book Shelf {% endblock %} {% block navbar %} {{
+super() }}
+<!--This super function will inherit all the code within the block navbar in the base.html-->
+{% endblock %} {% for message in get_flashed_messages() %}
+<!-- This loop will render the messages just provided by the flash extension just below the navbar-->
 <div class="alert alert-danger text-center" role="alert">{{ message }}</div>
-{% endfor %} {% block header %}{{ super() }} {% endblock %} {% block content %}
+{% endfor %} {% block header %}{{ super() }}<!--This super function will inherit all the code within the block header from the base.html-->
+{% endblock %} {% block content %}
 <div class="container d-flex justify-content-center mb-3">
   <div class="row">
     <div class="col col-12">
@@ -33,6 +37,7 @@ message in get_flashed_messages() %}
               />
             </svg>
           </div>
+          <!-- This form activated by the sign up submit button will activate the add_user function in the app.py file -->
           <form action="{{ url_for('add_user') }}" method="POST">
             <input
               required

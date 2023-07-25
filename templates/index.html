@@ -1,6 +1,7 @@
-{% extends "base.html" %} {% block javascript %} {% endblock %} {% block title
-%} Sign Up {% endblock %} {% block navbar %} {{ super() }} {% endblock %} {% for
-message in get_flashed_messages() %}
+{% extends "base.html" %}<!--Uses the base.html as a template -->
+{% block title %} Book Shelf {% endblock %} {% block navbar %} {{ super() }}<!--This super function will inherit all the code within the block navbar in the base.html-->
+{% endblock %} {% for message in get_flashed_messages() %}
+<!-- This loop will render the messages provided by the flash extension just below the navbar-->
 <div class="alert alert-danger text-center" role="alert">{{ message }}</div>
 {% endfor %} {% block header %}
 <div
@@ -55,6 +56,7 @@ message in get_flashed_messages() %}
 <div class="container d-flex justify-content-center align-items-center">
   <div class="row mt-3">
     <div class="col d-flex flex-column flex-sm-row">
+      <!-- This form activated by the sign up button will activate the render_register function in the app.py file -->
       <form action="{{ url_for('render_register') }}" method="GET">
         <button
           type="submit"
@@ -63,6 +65,7 @@ message in get_flashed_messages() %}
           Sign Up
         </button>
       </form>
+      <!-- This form activated by the log in buton will activate the render_login function in the app.py file -->
       <form action="{{ url_for('render_login') }}" method="GET">
         <button
           type="submit

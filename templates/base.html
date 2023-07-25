@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Bootstrap -->
+    <!-- Links to Bootstrap framework -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -12,33 +12,37 @@
       crossorigin="anonymous"
     />
 
-    <!-- CSS  -->
+    <!-- Link to CSS file  -->
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='css/styles.css') }}"
     />
 
+    <!-- Links the the Google fonts API -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Courgette&display=swap"
       rel="stylesheet"
     />
-
+    <!-- Template for the tab title on each HTML page that extends base.html -->
     <title>{% block title %}{% endblock %}</title>
   </head>
   <body>
     <div class="content-wrap d-flex flex-column min-vh-100">
       {% block navbar %}
+      <!--Template for all html page navbards that extend base.html-->
       <nav class="navbar navbar-expand-md navBar bg-dark">
         <div class="container-fluid">
+          <!-- This anchor changes the page to be rendered depending on the value of the active page variable in the app.py -->
           <a
             class="navbar-brand navBar"
             href="{% if active_page == 'home' %}{{ url_for('render_home') }}{% elif active_page == 'reviews' %}{{ url_for('render_home') }}{% elif active_page == 'wish_list' %}{{ url_for('render_home') }}{% endif %}"
           >
+            <!-- Renders imaage for the book shelf logo -->
             <img
               src="{{ url_for('static', filename='/img/book-svg-2.svg') }}"
-              alt=""
+              alt="Book Shelf Logo"
             />
             Book Shelf
           </a>
@@ -58,7 +62,9 @@
             id="navbarNav"
           >
             <ul class="navbar-nav ml-auto">
+              <!-- Each li is a tab in the nav bar -->
               {% if user.is_authenticated %}
+              <!-- Loop displayes the nav bar tabs depending on the state of the current user athentication-->
               <li class="nav-item navBar">
                 <a
                   class="navBar nav-link {% if active_page == 'home' %}active{% endif %}"
@@ -87,6 +93,7 @@
                 >
               </li>
               {% else %}
+              <!--If user is not authenticate only these tabs are displayed in the nav bar-->
               <li class="nav-item">
                 <a
                   class="nav-link navBar {% if active_page == 'sign_up' %}active{% endif %}"
@@ -110,21 +117,26 @@
       {% endblock %}
       <div class="main-content">
         {% block header %}
+        <!--Template for all page headers that extend base.html-->
         <h1
           id="pageTitle"
           class="pageTitle text-center row-bordered mb-4 mt-3 p-2 display-2"
         >
+          <!--This logic changes the title displayed in the header depending on the state of the variable active_page passes from app.py-->
           {% if active_page == 'home' %}Book Of The Month{% elif active_page ==
           'reviews' %}Personal Book Reviews {% elif active_page == 'login'
           %}Welcome Back!{% elif active_page == 'sign_up' %}Welcome to Book
           Shelf{% elif active_page == 'wish_list' %}Wish List{% else %}{% endif
           %}
         </h1>
-        {% endblock %} {% block content %} {% endblock %}
+        {% endblock %}
+        <!-- This is the template that holds the main body content displayed in the files that extend base.html-->
+        {% block content %} {% endblock %}
       </div>
     </div>
     <footer class="bg-dark py-2 mt-auto">
       <div class="container text-light text-center">
+        <!-- Renders imaage for the book shelf logo -->
         <img
           src="{{ url_for('static', filename='/img/book-svg-2.svg') }}"
           alt="Book Shelf Logo"
@@ -136,17 +148,17 @@
         >
       </div>
     </footer>
-    <!-- GSAP -->
+    <!-- GSAP - link to GSAP Javascript animation library-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
 
-    <!-- Bootstrap JS -->
+    <!-- Bootstrap JS framework link -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
       crossorigin="anonymous"
     ></script>
 
-    <!-- JavaScript -->
+    <!-- local JavaScript - link to local JavaScript script -->
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
   </body>
 </html>
