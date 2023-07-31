@@ -7,5 +7,5 @@ The project concept was to create a website that would give users the ability to
 The main goal of this assignment was to use Python along with the Flask framework to build a simple, yet engaging web application and have it hosted on Render.com. The incorporation of HTML, CSS, Bootstrap, and JavaScript was also required to achieve this final goal.
 
 ## How to access this website
-Simply follow the following link to easily access this project.
+Simply follow the following link to access this project.
 https://book-shelf-yqut.onrender.com
