@@ -240,12 +240,12 @@ def render_reviews():
             user=current_user,
         )
 
-
 @app.route("/reviews", methods=["POST"])
 def reviews():
     """Handle each post request of the reviews function"""
     active_page = "reviews"
 
+# Adds chosen book to local storage and displays on web page
     if request.args.get("f") == "f1":
         book_thumbnail = request.form.get("bookThumbnail")
         book_title = request.form.get("bookTitle")
@@ -263,6 +263,7 @@ def reviews():
             user=current_user,
         )
 
+# Removes chosen book from local storage and webpage
     if request.args.get("f") == "f2":
         book_title = request.form.get("bookTitleRemove")
         for book in my_books:
@@ -275,6 +276,7 @@ def reviews():
                     user=current_user,
                 )
 
+# Adds new thought to chosen book title
     if request.args.get("f") == "f3":
         book_title = request.form.get("bookTitleEdit")
         new_thoughts = request.form.get("new_thoughts")
@@ -324,6 +326,7 @@ def wish_list():
     """Handle each post request of the wish_list function"""
     active_page = "wish_list"
 
+# Adds chosen book to local storage and displays on web page
     if request.args.get("f") == "f1":
         book_thumbnail = request.form.get("bookThumbnail")
         book_title = request.form.get("bookTitle")
@@ -341,7 +344,8 @@ def wish_list():
             book_thumbnail=book_thumbnail,
             user=current_user,
         )
-
+    
+# Removes chosen book from local storage and webpage
     if request.args.get("f") == "f2":
         book_title = request.form.get("bookTitleRemove")
         for book in my_wishlist:
@@ -363,3 +367,4 @@ def wish_list():
 
 if __name__ == "__main__":
     app.run(debug=True, port=8000)
+
