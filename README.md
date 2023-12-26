@@ -11,7 +11,6 @@ Bookshelf is a dynamic online platform crafted as an interactive library and for
 - JavaScript
 - Python
 - Flask
-- PostgreSQL
 
 ## Preview
 ![Screenshot 2023-12-26 200913](https://github.com/brandonoregan/book-shelf/assets/100802480/9936ef5c-0bd5-4772-a4e5-8355bd47a947)
